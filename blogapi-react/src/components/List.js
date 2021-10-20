@@ -27,7 +27,7 @@ const List = () => {
   const allPosts = list.map((post, index) => {
     return (
       <div className="container" key={index}>
-        <Post list={list} setList={setList} />
+        <Post post={post} />
       </div>
     );
   });

@@ -8,7 +8,29 @@ import React from "react";
 // title: "my second post";
 
 const Post = (props) => {
-  return <div></div>;
+  let date = props.post.created_on.substring(0, 10);
+
+  console.log(typeof props.post.created_on);
+  return (
+    <React.Fragment>
+      <div className="row mt-5">
+        <div className="col">
+          <h3>{props.post.title}</h3>
+          <p>{props.post.content}</p>
+          <small>author: {props.post.author}</small>
+          <br />
+          <small>created on: {date}</small>
+          <br />
+          <button type="button" className="btn-sm btn-secondary mx-1">
+            update
+          </button>
+          <button type="button" className="btn-sm btn-secondary m-2">
+            delete
+          </button>
+        </div>
+      </div>
+    </React.Fragment>
+  );
 };
 
 export default Post;
