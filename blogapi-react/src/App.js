@@ -4,8 +4,18 @@ import List from "./components/Read";
 import logo from "./logo.png";
 import Create from "./components/Create";
 import Update from "./components/Update";
+import React, { useState } from "react";
 
 function App() {
+  const [thisPost, setThisPost] = useState({
+    //for initialising the update post
+    title: "",
+    content: "",
+    author: "",
+    slug: "",
+    id: "",
+  });
+
   return (
     <div className="container">
       <nav>
@@ -29,13 +39,13 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/">
-            <List />
+            <List thisPost={thisPost} setThisPost={setThisPost} />
           </Route>
           <Route path="/create">
             <Create />
           </Route>
           <Route path="/update">
-            <Update />
+            <Update thisPost={thisPost} setThisPost={setThisPost} />
           </Route>
           <Redirect to="/" />
         </Switch>

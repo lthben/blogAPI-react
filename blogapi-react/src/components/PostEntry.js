@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 // title: "my second post";
 
 //props: refreshList, setRefreshList
+//props: thisPost, setThisPost
 
 const PostEntry = (props) => {
   let history = useHistory();
@@ -26,15 +27,22 @@ const PostEntry = (props) => {
   };
 
   const handleClick = () => {
-    // history.push("/update");
-    setShowUpdate(!showUpdate);
+    // setShowUpdate(!showUpdate);
+    props.setThisPost({
+      title: props.post.title,
+      content: props.post.content,
+      author: props.post.author,
+      slug: props.post.slug,
+      id: props.post.id,
+    });
+    history.push("/update");
   };
 
   return (
     <React.Fragment>
       <div className="row mt-5">
         <div className="col">
-          <h3>{props.post.title}</h3>
+          <h3 className="mb-3">{props.post.title}</h3>
           <p>{props.post.content}</p>
           <small>author: {props.post.author}</small>
           <br />
@@ -56,14 +64,14 @@ const PostEntry = (props) => {
           </button>
         </div>
       </div>
-      {showUpdate ? (
+      {/* {showUpdate ? (
         <Update
           post={props.post}
           refreshList={props.refreshList}
           setRefreshList={props.setRefreshList}
           setShowUpdate={setShowUpdate}
         />
-      ) : null}
+      ) : null} */}
     </React.Fragment>
   );
 };

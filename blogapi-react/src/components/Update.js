@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 const Update = (props) => {
   let history = useHistory();
+  // props:
   // author: "Mary";
   // content: "lorem ipsum";
   // created_on: "2021-10-20T04:41:12.388510Z";
@@ -11,17 +12,16 @@ const Update = (props) => {
   // title: "my second post";
 
   const [post, setPost] = useState({
-    title: props.post.title,
-    content: props.post.content,
-    author: props.post.author,
-    slug: props.post.slug,
+    title: props.thisPost.title,
+    content: props.thisPost.content,
+    author: props.thisPost.author,
+    slug: props.thisPost.slug,
   });
-
-  console.log("update.js here, post: ", post);
 
   const updatePost = async () => {
     // if (isPostDone == true) {
-    const URI = "http://localhost:8000/api/post-update/" + props.post.id + "/";
+    const URI =
+      "http://localhost:8000/api/post-update/" + props.thisPost.id + "/";
     await fetch(URI, {
       headers: { "Content-Type": "application/json" },
       method: "POST",
@@ -30,10 +30,14 @@ const Update = (props) => {
       .then(async (response) => {
         const res = await response.json();
         console.log("Response: ", res);
-        alert("post updated!");
-        history.push("/");
-        props.setShowUpdate(false);
-        props.setRefreshList(!props.refreshList);
+        if (res === "updated") {
+          alert("post updated!");
+          history.push("/");
+          //   props.setShowUpdate(false);
+          //   props.setRefreshList(!props.refreshList);
+        } else {
+          alert("error updating. Please try again.");
+        }
       })
       .catch((error) => {
         console.log(error);

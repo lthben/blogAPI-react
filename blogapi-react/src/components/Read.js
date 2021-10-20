@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PostEntry from "./PostEntry";
 
-const List = () => {
+const List = (props) => {
+  //props: thisPost, setThisPost
   const [list, setList] = useState([]);
   const [refreshList, setRefreshList] = useState(false);
 
@@ -32,6 +33,8 @@ const List = () => {
           post={post}
           refreshList={refreshList}
           setRefreshList={setRefreshList}
+          thisPost={props.thisPost}
+          setThisPost={props.setThisPost}
         />
       </div>
     );
