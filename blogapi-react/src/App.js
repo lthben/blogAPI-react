@@ -1,13 +1,11 @@
 import "./App.css";
-import React, { useState, createContext } from "react";
-import { Route, Link, Redirect } from "react-router-dom";
-import List from "./components/List";
+import { Route, Link, Redirect, Switch } from "react-router-dom";
+import List from "./components/Read";
 import logo from "./logo.png";
 import Create from "./components/Create";
+import Update from "./components/Update";
 
 function App() {
-  const [refreshList, setRefreshList] = useState(false);
-
   return (
     <div className="container">
       <nav>
@@ -28,21 +26,22 @@ function App() {
           </div>
         </div>
       </nav>
-      {/* <DataContext.Provider value={userData}>
-        <ComponentA />
-        <ComponentE />
-      </DataContext.Provider> */}
       <main>
-        <Route exact path="/">
-          <List />
-        </Route>
-        <Route path="/create">
-          <Create refreshList={refreshList} setRefreshList={setRefreshList} />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <List />
+          </Route>
+          <Route path="/create">
+            <Create />
+          </Route>
+          <Route path="/update">
+            <Update />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
       </main>
     </div>
   );
 }
 
 export default App;
-// export const DataContext = createContext();

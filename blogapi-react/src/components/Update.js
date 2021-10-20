@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Create = () => {
+const Update = (props) => {
+  let history = useHistory();
   // author: "Mary";
   // content: "lorem ipsum";
   // created_on: "2021-10-20T04:41:12.388510Z";
@@ -9,19 +10,18 @@ const Create = () => {
   // slug: "my-second-post";
   // title: "my second post";
 
-  let history = useHistory();
-
   const [post, setPost] = useState({
-    title: "",
-    content: "",
-    author: "",
-    slug: "",
+    title: props.post.title,
+    content: props.post.content,
+    author: props.post.author,
+    slug: props.post.slug,
   });
 
-  const createPost = async () => {
-    const URI = "http://localhost:8000/api/post-create/";
-    console.log("creating post: ", post);
+  console.log("update.js here, post: ", post);
 
+  const updatePost = async () => {
+    // if (isPostDone == true) {
+    const URI = "http://localhost:8000/api/post-update/" + props.post.id + "/";
     await fetch(URI, {
       headers: { "Content-Type": "application/json" },
       method: "POST",
@@ -30,17 +30,27 @@ const Create = () => {
       .then(async (response) => {
         const res = await response.json();
         console.log("Response: ", res);
-        if (res === "ok") {
-          alert("post created!");
-          history.push("/");
-        } else {
-          alert("Error creating. Please check all fields are filled in.");
-        }
+        alert("post updated!");
+        history.push("/");
+        props.setShowUpdate(false);
+        props.setRefreshList(!props.refreshList);
       })
       .catch((error) => {
         console.log(error);
       });
     // }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let str = post.title;
+    str = str.replace(/[\W_]+/g, "-");
+    str = str.toLowerCase();
+
+    setPost({ ...post, slug: str });
+    console.log("check post is properly set here: ", post);
+    updatePost();
   };
 
   const handleInputChange = (e) => {
@@ -57,23 +67,9 @@ const Create = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // console.log("post chicken here: ", post);
-    let str = post.title;
-    // let str = "?_ *^ this_is a tEst tiTle=123>";
-    str = str.replace(/[\W_]+/g, "-");
-    str = str.toLowerCase();
-    // console.log("slug: ", str);
-
-    setPost({ ...post, slug: str });
-    createPost();
-  };
-
   return (
     <React.Fragment>
-      <h1 className="my-3">Create a new post</h1>
+      <h1 className="my-3">Edit your post</h1>
       <form>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
@@ -127,4 +123,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Update;

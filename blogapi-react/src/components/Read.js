@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Post from "./Post";
+import PostEntry from "./PostEntry";
 
 const List = () => {
   const [list, setList] = useState([]);
+  const [refreshList, setRefreshList] = useState(false);
 
   const getList = async () => {
     const URI = "http://localhost:8000/api/post-list/";
@@ -13,7 +14,7 @@ const List = () => {
       .then(async (response) => {
         const data = await response.json();
         setList(data);
-        console.log("Data: ", data);
+        // console.log("In Read.js: Data: ", data);
       })
       .catch((error) => {
         console.log(error);
@@ -22,12 +23,16 @@ const List = () => {
 
   useEffect(() => {
     getList();
-  }, []);
+  }, [refreshList]);
 
   const allPosts = list.map((post, index) => {
     return (
       <div className="container" key={index}>
-        <Post post={post} />
+        <PostEntry
+          post={post}
+          refreshList={refreshList}
+          setRefreshList={setRefreshList}
+        />
       </div>
     );
   });
