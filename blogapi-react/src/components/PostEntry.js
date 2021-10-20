@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 const PostEntry = (props) => {
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
+  let time = props.post.created_on.substring(11, 16);
 
   const [showUpdate, setShowUpdate] = useState(false);
 
@@ -46,7 +47,9 @@ const PostEntry = (props) => {
           <p>{props.post.content}</p>
           <small>author: {props.post.author}</small>
           <br />
-          <small>created on: {date}</small>
+          <small>
+            created on: {date} {time}
+          </small>
           <br />
           <button
             type="button"
