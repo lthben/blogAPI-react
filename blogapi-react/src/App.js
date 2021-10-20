@@ -22,15 +22,16 @@ function App() {
         <br />
         <div className="row align-items-center justify-content-center text-center">
           <div className="col-md-4 mb-3">
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <img src={logo} alt="logo" width="60px" height="60px" />
+              <span id="log-site">log Site</span>
             </Link>
           </div>
-          <div className="col-md-6 mb-3"></div>
-          <div className="col-md-2 mb-3">
+          <div className="col-md-4 mb-3"></div>
+          <div className="col-md-4 mb-3">
             <Link to="/create">
               <button type="button" className="btn btn-primary">
-                Post
+                Create
               </button>
             </Link>
           </div>
