@@ -43,6 +43,13 @@ const Create = () => {
     // }
   };
 
+  const generateSlug = (title) => {
+    let str = title;
+    str = str.replace(/[\W_]+/g, "-");
+    str = str.toLowerCase();
+    return str;
+  };
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -53,21 +60,13 @@ const Create = () => {
     setPost({
       ...post,
       [name]: value,
-      slug: post.title,
+      slug: generateSlug(document.querySelector("input[name=title]").value),
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // console.log("post chicken here: ", post);
-    let str = post.title;
-    // let str = "?_ *^ this_is a tEst tiTle=123>";
-    str = str.replace(/[\W_]+/g, "-");
-    str = str.toLowerCase();
-    // console.log("slug: ", str);
-
-    setPost({ ...post, slug: str });
+    console.log("check post is properly set here: ", post);
     createPost();
   };
 
