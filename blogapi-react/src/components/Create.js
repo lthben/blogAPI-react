@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Create = () => {
+const Create = (props) => {
   // author: "Mary";
   // content: "lorem ipsum";
   // created_on: "2021-10-20T04:41:12.388510Z";
@@ -23,7 +23,10 @@ const Create = () => {
     console.log("creating post: ", post);
 
     await fetch(URI, {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+        "Content-Type": "application/json",
+      },
       method: "POST",
       body: JSON.stringify(post),
     })

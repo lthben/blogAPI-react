@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Login = (props) => {
+const SignUp = (props) => {
   let history = useHistory();
 
   const [data, setData] = useState({
     username: "",
+    email: "",
     password: "",
   });
-
   const handleInputChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -19,28 +19,9 @@ const Login = (props) => {
     });
   };
 
-  const getTokens = () => {
-    fetch("http://localhost:8000/api/token/", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-      .then(async (response) => {
-        const res = await response.json();
-        console.log("get token response: ", res);
-        // props.setAccessToken(res.access);
-        // props.setRefreshToken(res.refresh);
-        localStorage.setItem("access_token", res.access);
-        localStorage.setItem("refresh_token", res.refresh);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/user/login/", {
+    fetch("http://localhost:8000/user/signup/", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(data),
@@ -48,25 +29,20 @@ const Login = (props) => {
       .then((response) => {
         setData({
           username: "",
+          email: "",
           password: "",
         });
-        // const data = await response.json();
-        console.log(response);
-        if (response.status !== 200) {
-          console.log("failed to login");
-          //   console.log(data.status);
-          alert(
-            "Login failed. Please check that your credentials are correct."
-          );
-          return Promise.reject("failed to login ");
+        // console.log("res: ", typeof response.status);
+        if (response.status !== 201) {
+          return Promise.reject("failed to sign up ");
         }
-        console.log("successfully logged in: ");
+        console.log("successfully signed up ");
         props.setIsLoggedIn(true);
-        alert("Successful login");
 
-        getTokens();
-
-        history.push("/");
+        alert(
+          "Successful sign up. Please proceed to log in with the same credentials."
+        );
+        history.push("/login");
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +54,7 @@ const Login = (props) => {
       <div className="border border-dark" className="registration-box">
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
-            <h3>Please log in</h3>
+            <h3>Sign up for an account:</h3>
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -90,6 +66,19 @@ const Login = (props) => {
               id="exampleInputEmail1"
               value={data.username}
               name="username"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="exampleInputEmail1"
+              value={data.email}
+              name="email"
               onChange={handleInputChange}
             />
           </div>
@@ -116,4 +105,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;

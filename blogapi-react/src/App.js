@@ -5,8 +5,14 @@ import logo from "./logo.png";
 import Create from "./components/Create";
 import Update from "./components/Update";
 import React, { useState } from "react";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import UserButtons from "./components/UserButtons";
 
 function App() {
+  // const [accessToken, setAccessToken] = useState("");
+  // const [refreshToken, setRefreshToken] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [refreshList, setRefreshList] = useState(false);
   const [thisPost, setThisPost] = useState({
     //for initialising the update post
@@ -16,6 +22,8 @@ function App() {
     slug: "",
     id: "",
   });
+
+  const handleLogout = () => {};
 
   return (
     <div className="container">
@@ -30,11 +38,10 @@ function App() {
           </div>
           <div className="col-md-4 mb-3"></div>
           <div className="col-md-4 mb-3">
-            <Link to="/create">
-              <button type="button" className="btn btn-primary">
-                Create
-              </button>
-            </Link>
+            <UserButtons
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
           </div>
         </div>
       </nav>
@@ -46,10 +53,14 @@ function App() {
               setThisPost={setThisPost}
               refreshList={refreshList}
               setRefreshList={setRefreshList}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
             />
           </Route>
           <Route path="/create">
-            <Create />
+            <Create
+            // accessToken={accessToken}
+            />
           </Route>
           <Route path="/update">
             <Update
@@ -58,6 +69,19 @@ function App() {
               refreshList={refreshList}
               setRefreshList={setRefreshList}
             />
+          </Route>
+          <Route path="/login">
+            <Login
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              // accessToken={accessToken}
+              // refreshToken={refreshToken}
+              // setAccessToken={setAccessToken}
+              // setRefreshToken={setRefreshToken}
+            />
+          </Route>
+          <Route path="/signup">
+            <SignUp isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Redirect to="/" />
         </Switch>

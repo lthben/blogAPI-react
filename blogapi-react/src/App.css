@@ -6,3 +6,12 @@ div {
   font-size: xx-large;
   color: black;
 }
+.registration-box {
+  margin: 5% 20%;
+  padding: 5% 10%;
+}
+
+.btn-primary:disabled {
+  background-color: lightgray;
+  border: lightgray;
+}

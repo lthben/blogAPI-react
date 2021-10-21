@@ -36,6 +36,8 @@ const List = (props) => {
           setRefreshList={props.setRefreshList}
           thisPost={props.thisPost}
           setThisPost={props.setThisPost}
+          isLoggedIn={props.isLoggedIn}
+          setIsLoggedIn={props.setIsLoggedIn}
         />
       </div>
     );

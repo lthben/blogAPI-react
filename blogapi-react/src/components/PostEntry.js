@@ -48,15 +48,17 @@ const PostEntry = (props) => {
           <br />
           <button
             type="button"
-            className="btn-sm btn-secondary mx-1"
+            className="btn-sm btn-primary mx-1"
             onClick={handleClick}
+            disabled={!props.isLoggedIn}
           >
             update
           </button>
           <button
             type="button"
-            className="btn-sm btn-secondary m-2"
+            className="btn-sm btn-primary m-2"
             onClick={myHandleDelete}
+            disabled={!props.isLoggedIn}
           >
             delete
           </button>

@@ -1,7 +1,10 @@
 export async function handleDelete(postID) {
   const URI = "http://localhost:8000/api/post-delete/" + postID + "/";
   await fetch(URI, {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+      "Content-Type": "application/json",
+    },
     method: "DELETE",
   })
     .then(async (response) => {
