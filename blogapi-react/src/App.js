@@ -7,6 +7,7 @@ import Update from "./components/Update";
 import React, { useState } from "react";
 
 function App() {
+  const [refreshList, setRefreshList] = useState(false);
   const [thisPost, setThisPost] = useState({
     //for initialising the update post
     title: "",
@@ -40,13 +41,23 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/">
-            <List thisPost={thisPost} setThisPost={setThisPost} />
+            <List
+              thisPost={thisPost}
+              setThisPost={setThisPost}
+              refreshList={refreshList}
+              setRefreshList={setRefreshList}
+            />
           </Route>
           <Route path="/create">
             <Create />
           </Route>
           <Route path="/update">
-            <Update thisPost={thisPost} setThisPost={setThisPost} />
+            <Update
+              thisPost={thisPost}
+              setThisPost={setThisPost}
+              refreshList={refreshList}
+              setRefreshList={setRefreshList}
+            />
           </Route>
           <Redirect to="/" />
         </Switch>

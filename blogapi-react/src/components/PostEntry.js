@@ -1,6 +1,5 @@
 import { handleDelete } from "./Delete";
-import React, { useState } from "react";
-import Update from "./Update";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 // props.post:
@@ -19,16 +18,12 @@ const PostEntry = (props) => {
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
 
-  const [showUpdate, setShowUpdate] = useState(false);
-
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
     props.setRefreshList(!props.refreshList);
-    setShowUpdate(false);
   };
 
   const handleClick = () => {
-    // setShowUpdate(!showUpdate);
     props.setThisPost({
       title: props.post.title,
       content: props.post.content,
@@ -67,14 +62,6 @@ const PostEntry = (props) => {
           </button>
         </div>
       </div>
-      {/* {showUpdate ? (
-        <Update
-          post={props.post}
-          refreshList={props.refreshList}
-          setRefreshList={props.setRefreshList}
-          setShowUpdate={setShowUpdate}
-        />
-      ) : null} */}
     </React.Fragment>
   );
 };

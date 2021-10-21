@@ -19,7 +19,6 @@ const Update = (props) => {
   });
 
   const updatePost = async () => {
-    // if (isPostDone == true) {
     const URI =
       "http://localhost:8000/api/post-update/" + props.thisPost.id + "/";
     await fetch(URI, {
@@ -32,9 +31,8 @@ const Update = (props) => {
         console.log("Response: ", res);
         if (res === "updated") {
           alert("post updated!");
+          props.setRefreshList(!props.refreshList);
           history.push("/");
-          //   props.setShowUpdate(false);
-          //   props.setRefreshList(!props.refreshList);
         } else {
           alert("error updating. Please try again.");
         }
@@ -47,14 +45,15 @@ const Update = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let str = post.title;
-    str = str.replace(/[\W_]+/g, "-");
-    str = str.toLowerCase();
-
-    setPost({ ...post, slug: str });
     console.log("check post is properly set here: ", post);
     updatePost();
+  };
+
+  const generateSlug = (title) => {
+    let str = title;
+    str = str.replace(/[\W_]+/g, "-");
+    str = str.toLowerCase();
+    return str;
   };
 
   const handleInputChange = (e) => {
@@ -67,7 +66,7 @@ const Update = (props) => {
     setPost({
       ...post,
       [name]: value,
-      slug: post.title,
+      slug: generateSlug(document.querySelector("input[name=title]").value),
     });
   };
 

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import PostEntry from "./PostEntry";
 
 const List = (props) => {
-  //props: thisPost, setThisPost
   const [list, setList] = useState([]);
-  const [refreshList, setRefreshList] = useState(false);
+
+  // props:
+  // const [refreshList, setRefreshList] = useState(false);
 
   const getList = async () => {
     const URI = "http://localhost:8000/api/post-list/";
@@ -24,15 +25,15 @@ const List = (props) => {
 
   useEffect(() => {
     getList();
-  }, [refreshList]);
+  }, [props.refreshList]);
 
   const allPosts = list.map((post, index) => {
     return (
       <div className="container" key={index}>
         <PostEntry
           post={post}
-          refreshList={refreshList}
-          setRefreshList={setRefreshList}
+          refreshList={props.refreshList}
+          setRefreshList={props.setRefreshList}
           thisPost={props.thisPost}
           setThisPost={props.setThisPost}
         />
