@@ -5,6 +5,8 @@ const SignUp = (props) => {
   let history = useHistory();
 
   const [data, setData] = useState({
+    first_name: "",
+    last_name: "",
     username: "",
     email: "",
     password: "",
@@ -28,6 +30,8 @@ const SignUp = (props) => {
     })
       .then((response) => {
         setData({
+          first_name: "",
+          last_name: "",
           username: "",
           email: "",
           password: "",
@@ -55,6 +59,32 @@ const SignUp = (props) => {
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
             <h3>Sign up for an account:</h3>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              First name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputEmail1"
+              value={data.first_name}
+              name="first_name"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Last name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputEmail1"
+              value={data.last_name}
+              name="last_name"
+              onChange={handleInputChange}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">

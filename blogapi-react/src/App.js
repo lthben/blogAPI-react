@@ -39,8 +39,7 @@ function App() {
               <span id="log-site">log Site</span>
             </Link>
           </div>
-          <div className="col-md-4 mb-3"></div>
-          <div className="col-md-4 mb-3">
+          <div className="col-md-8 mb-3 text-end">
             <UserButtons
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}

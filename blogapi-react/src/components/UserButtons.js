@@ -2,20 +2,25 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const UserButtons = (props) => {
-  useEffect(() => {
-    console.log("in USerBittons, isLoggedIn: ", props.isLoggedIn);
-  }, [props.isLoggedIn]);
+  useEffect(() => {}, [props.isLoggedIn]);
 
   const handleLogout = () => {
     props.setIsLoggedIn(false);
     localStorage.setItem("isLoggedIn", false);
     localStorage.setItem("access_token", null);
     localStorage.setItem("refresh_token", null);
+    localStorage.setItem("firstname", null);
   };
 
   if (props.isLoggedIn) {
     return (
       <>
+        {props.isLoggedIn ? (
+          <>
+            Welcome &nbsp;
+            <b>{localStorage.getItem("firstname")}</b>
+          </>
+        ) : null}
         <Link to="/create">
           <button type="button" className="btn btn-primary mx-3">
             Create

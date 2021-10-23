@@ -15,7 +15,7 @@ const Create = (props) => {
   const [post, setPost] = useState({
     title: "",
     content: "",
-    author: "",
+    author: localStorage.getItem("firstname"),
     slug: "",
   });
 
@@ -107,20 +107,6 @@ const Create = (props) => {
             value={post.content}
             onChange={handleInputChange}
           ></textarea>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="author" className="form-label">
-            Author:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="author"
-            name="author"
-            value={post.author}
-            onChange={handleInputChange}
-          />
         </div>
         <button
           type="button"

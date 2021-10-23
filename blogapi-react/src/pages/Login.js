@@ -19,37 +19,59 @@ const Login = (props) => {
     });
   };
 
-  const getTokens = () => {
-    fetch("http://localhost:8000/api/token/", {
+  const getTokens = async () => {
+    await fetch("http://localhost:8000/api/token/", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(data),
     })
       .then(async (response) => {
         const res = await response.json();
-        console.log("get token response: ", res);
-        localStorage.setItem("access_token", res.access);
-        localStorage.setItem("refresh_token", res.refresh);
+        console.log("got tokens! ");
+        await localStorage.setItem("access_token", res.access);
+        await localStorage.setItem("refresh_token", res.refresh);
+        console.log("localstorage tokens set!");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const handleSubmit = (e) => {
+  const getFirstName = async () => {
+    await fetch("http://localhost:8000/user/firstname/", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ username: data.username }),
+    })
+      .then(async (response) => {
+        const res = await response.json();
+        console.log("first name obtained!");
+        localStorage.setItem("firstname", res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/user/login/", {
+    await fetch("http://localhost:8000/user/login/", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(data),
     })
-      .then((response) => {
+      .then(async (response) => {
         setData({
           username: "",
           password: "",
         });
         // const data = await response.json();
-        console.log(response);
+        console.log("Login response: ", response);
+        const res = await response.json();
+        console.log("Login response json: ", res);
         if (response.status !== 200) {
           console.log("failed to login");
           //   console.log(data.status);
@@ -58,16 +80,16 @@ const Login = (props) => {
           );
           return Promise.reject("failed to login ");
         }
-        console.log("successfully logged in: ");
-        props.setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", true);
-        console.log(
-          "local stroage at login set: ",
-          localStorage.getItem("isLoggedIn")
-        );
-        alert("Successful login");
+        await getTokens();
 
-        getTokens();
+        console.log("successfully logged in: ");
+
+        localStorage.setItem("isLoggedIn", true);
+
+        await getFirstName();
+
+        props.setIsLoggedIn(true);
+        alert("Successful login");
 
         history.push("/");
       })

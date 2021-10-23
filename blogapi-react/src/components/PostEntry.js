@@ -50,7 +50,10 @@ const PostEntry = (props) => {
             type="button"
             className="btn-sm btn-primary mx-1"
             onClick={handleClick}
-            disabled={!props.isLoggedIn}
+            disabled={
+              !props.isLoggedIn ||
+              !(props.post.author === localStorage.getItem("firstname"))
+            }
           >
             update
           </button>
@@ -58,7 +61,10 @@ const PostEntry = (props) => {
             type="button"
             className="btn-sm btn-primary m-2"
             onClick={myHandleDelete}
-            disabled={!props.isLoggedIn}
+            disabled={
+              !props.isLoggedIn ||
+              !(props.post.author === localStorage.getItem("firstname"))
+            }
           >
             delete
           </button>
