@@ -2,10 +2,15 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const UserButtons = (props) => {
-  useEffect(() => {}, [props.isLoggedIn]);
+  useEffect(() => {
+    console.log("in USerBittons, isLoggedIn: ", props.isLoggedIn);
+  }, [props.isLoggedIn]);
 
   const handleLogout = () => {
     props.setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", false);
+    localStorage.setItem("access_token", null);
+    localStorage.setItem("refresh_token", null);
   };
 
   if (props.isLoggedIn) {

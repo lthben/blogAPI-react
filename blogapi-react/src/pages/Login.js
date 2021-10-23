@@ -28,8 +28,6 @@ const Login = (props) => {
       .then(async (response) => {
         const res = await response.json();
         console.log("get token response: ", res);
-        // props.setAccessToken(res.access);
-        // props.setRefreshToken(res.refresh);
         localStorage.setItem("access_token", res.access);
         localStorage.setItem("refresh_token", res.refresh);
       })
@@ -62,6 +60,11 @@ const Login = (props) => {
         }
         console.log("successfully logged in: ");
         props.setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", true);
+        console.log(
+          "local stroage at login set: ",
+          localStorage.getItem("isLoggedIn")
+        );
         alert("Successful login");
 
         getTokens();

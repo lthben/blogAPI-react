@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { refreshToken } from "../components/RefreshToken";
 
-const Update = (props) => {
-  let history = useHistory();
-  // props:
+const Create = (props) => {
   // author: "Mary";
   // content: "lorem ipsum";
   // created_on: "2021-10-20T04:41:12.388510Z";
@@ -11,19 +10,22 @@ const Update = (props) => {
   // slug: "my-second-post";
   // title: "my second post";
 
+  let history = useHistory();
+
   const [post, setPost] = useState({
-    title: props.thisPost.title,
-    content: props.thisPost.content,
-    author: props.thisPost.author,
-    slug: props.thisPost.slug,
+    title: "",
+    content: "",
+    author: "",
+    slug: "",
   });
 
-  const updatePost = async () => {
-    const URI =
-      "http://localhost:8000/api/post-update/" + props.thisPost.id + "/";
+  const createPost = async () => {
+    const URI = "http://localhost:8000/api/post-create/";
+    console.log("creating post: ", post);
+
     await fetch(URI, {
       headers: {
-        "Authorization": "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+        Authorization: "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
         "Content-Type": "application/json",
       },
       method: "POST",
@@ -32,24 +34,21 @@ const Update = (props) => {
       .then(async (response) => {
         const res = await response.json();
         console.log("Response: ", res);
-        if (res === "updated") {
-          alert("post updated!");
-          props.setRefreshList(!props.refreshList);
+        if (res.code === "token_not_valid") {
+          refreshToken();
+          // console.log("calling createPost again ... ");
+          createPost();
+        } else if (res === "ok") {
+          alert("post created!");
           history.push("/");
         } else {
-          alert("error updating. Please try again.");
+          alert("Error creating. Please check all fields are filled in.");
         }
       })
       .catch((error) => {
         console.log(error);
       });
     // }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("check post is properly set here: ", post);
-    updatePost();
   };
 
   const generateSlug = (title) => {
@@ -73,9 +72,15 @@ const Update = (props) => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("check post is properly set here: ", post);
+    createPost();
+  };
+
   return (
     <React.Fragment>
-      <h1 className="my-3">Edit your post</h1>
+      <h1 className="my-3">Create a new post</h1>
       <form>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
@@ -129,4 +134,4 @@ const Update = (props) => {
   );
 };
 
-export default Update;
+export default Create;

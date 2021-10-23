@@ -1,12 +1,12 @@
 import "./App.css";
 import { Route, Link, Redirect, Switch } from "react-router-dom";
-import List from "./components/Read";
+import List from "./pages/Read";
 import logo from "./logo.png";
-import Create from "./components/Create";
-import Update from "./components/Update";
-import React, { useState } from "react";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import Create from "./pages/Create";
+import Update from "./pages/Update";
+import React, { useState, useEffect } from "react";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import UserButtons from "./components/UserButtons";
 
 function App() {
@@ -23,7 +23,10 @@ function App() {
     id: "",
   });
 
-  const handleLogout = () => {};
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(loginStatus);
+  }, []);
 
   return (
     <div className="container">

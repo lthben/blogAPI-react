@@ -1,8 +1,10 @@
-export async function handleDelete(postID) {
+import { refreshToken } from "./RefreshToken";
+
+export const handleDelete = async (postID) => {
   const URI = "http://localhost:8000/api/post-delete/" + postID + "/";
   await fetch(URI, {
     headers: {
-      "Authorization": "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+      Authorization: "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
       "Content-Type": "application/json",
     },
     method: "DELETE",
@@ -10,9 +12,14 @@ export async function handleDelete(postID) {
     .then(async (response) => {
       const res = await response.json();
       console.log("Response: ", res);
-      alert("post deleted!");
+      if (res.code === "token_not_valid") {
+        refreshToken();
+        await handleDelete(postID);
+      } else {
+        alert("post deleted!");
+      }
     })
     .catch((error) => {
       console.log(error);
     });
-}
+};

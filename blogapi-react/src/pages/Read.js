@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PostEntry from "./PostEntry";
+import PostEntry from "../components/PostEntry";
 
 const List = (props) => {
   const [list, setList] = useState([]);
