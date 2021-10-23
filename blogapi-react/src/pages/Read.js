@@ -4,10 +4,19 @@ import PostEntry from "../components/PostEntry";
 const List = (props) => {
   const [list, setList] = useState([]);
 
-  // props:
-  // const [refreshList, setRefreshList] = useState(false);
+  //  thisPost = { thisPost };
+  //  setThisPost = { setThisPost };
+  //  refreshList = { refreshList };
+  //  setRefreshList = { setRefreshList };
+  //  isLoggedIn = { isLoggedIn };
+
+  useEffect(() => {
+    getList();
+  }, [props.refreshList, props.isLoggedIn]);
 
   const getList = async () => {
+    console.log("getList in Read.js called ... ");
+
     const URI = "http://localhost:8000/api/post-list/";
     await fetch(URI, {
       headers: { "Content-Type": "application/json" },
@@ -23,10 +32,6 @@ const List = (props) => {
       });
   };
 
-  useEffect(() => {
-    getList();
-  }, [props.refreshList]);
-
   const allPosts = list.map((post, index) => {
     return (
       <div className="container" key={index}>
@@ -37,7 +42,6 @@ const List = (props) => {
           thisPost={props.thisPost}
           setThisPost={props.setThisPost}
           isLoggedIn={props.isLoggedIn}
-          setIsLoggedIn={props.setIsLoggedIn}
         />
       </div>
     );

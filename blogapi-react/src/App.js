@@ -26,27 +26,23 @@ function App() {
   useEffect(() => {
     const loginStatus = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(loginStatus);
+    console.log("in App useEffect, isLoggedIn: ", loginStatus);
   }, []);
 
   return (
     <div className="container">
-      <nav>
-        <br />
-        <div className="row align-items-center justify-content-center text-center">
-          <div className="col-md-4 mb-3">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <img src={logo} alt="logo" width="60px" height="60px" />
-              <span id="log-site">log Site</span>
-            </Link>
-          </div>
-          <div className="col-md-8 mb-3 text-end">
-            <UserButtons
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-            />
-          </div>
+      <nav className="row my-3 align-items-center">
+        <div className="col-md-4  text-start">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <img src={logo} alt="logo" width="60px" height="60px" />
+            <span id="log-site">log Site</span>
+          </Link>
+        </div>
+        <div className="col-md-8 text-end">
+          <UserButtons isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </div>
       </nav>
+      <hr />
       <main>
         <Switch>
           <Route exact path="/">
@@ -56,7 +52,6 @@ function App() {
               refreshList={refreshList}
               setRefreshList={setRefreshList}
               isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
             />
           </Route>
           <Route path="/create">

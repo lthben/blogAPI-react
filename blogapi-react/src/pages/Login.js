@@ -100,9 +100,9 @@ const Login = (props) => {
 
   return (
     <div>
-      <div className="border border-dark" className="registration-box">
+      <div className="border border-dark registration-box">
         <form onSubmit={handleSubmit}>
-          <div className="mb-5">
+          <div className="mb-4">
             <h3>Please log in</h3>
           </div>
           <div className="mb-3">
@@ -118,7 +118,7 @@ const Login = (props) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="mb-5">
+          <div className="mb-4">
             <label htmlFor="exampleInputPassword1" className="form-label">
               Password
             </label>

@@ -1,5 +1,5 @@
 import { handleDelete } from "./Delete";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 // props.post:
@@ -10,13 +10,34 @@ import { useHistory } from "react-router-dom";
 // slug: "my-second-post";
 // title: "my second post";
 
-//props: refreshList, setRefreshList
-//props: thisPost, setThisPost
+// props:
+// post = { post }
+// refreshList={props.refreshList}
+// setRefreshList={props.setRefreshList}
+// thisPost={props.thisPost}
+// setThisPost={props.setThisPost}
+// isLoggedIn={props.isLoggedIn}
+// setIsLoggedIn={props.setIsLoggedIn}
 
 const PostEntry = (props) => {
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
+
+  const [visibility, setVisibility] = useState(false);
+
+  useEffect(() => {
+    if (
+      props.isLoggedIn === true &&
+      props.post.author === localStorage.getItem("firstname")
+    ) {
+      setVisibility(true);
+    } else {
+      setVisibility(false);
+    }
+    console.log("in PostEntry, props.isLoggedIn: ", props.isLoggedIn);
+    // console.log("vibisility of delete and update buttons: ", visibility);
+  }, [props.isLoggedIn]);
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
@@ -36,40 +57,38 @@ const PostEntry = (props) => {
 
   return (
     <React.Fragment>
-      <div className="row mt-5">
-        <div className="col">
-          <h3 className="mb-3">{props.post.title}</h3>
-          <p>{props.post.content}</p>
-          <small>author: {props.post.author}</small>
-          <br />
+      <div className="row ">
+        <div className="col ">
+          <h3 className="mt-3">{props.post.title}</h3>
           <small>
-            created on: {date} {time}
+            {props.post.author} &nbsp; {date} &nbsp; {time}
           </small>
-          <br />
-          <button
-            type="button"
-            className="btn-sm btn-primary mx-1"
-            onClick={handleClick}
-            disabled={
-              !props.isLoggedIn ||
-              !(props.post.author === localStorage.getItem("firstname"))
-            }
-          >
-            update
-          </button>
-          <button
-            type="button"
-            className="btn-sm btn-primary m-2"
-            onClick={myHandleDelete}
-            disabled={
-              !props.isLoggedIn ||
-              !(props.post.author === localStorage.getItem("firstname"))
-            }
-          >
-            delete
-          </button>
+          <p className="mt-3">{props.post.content}</p>
+          <div className="mb-3">
+            <button
+              type="button"
+              className={
+                "btn-sm btn-primary mx-1 " +
+                (visibility ? "visible" : "invisible")
+              }
+              onClick={handleClick}
+            >
+              update
+            </button>
+            <button
+              type="button"
+              className={
+                "btn-sm btn-primary mx-1 " +
+                (visibility ? "visible" : "invisible")
+              }
+              onClick={myHandleDelete}
+            >
+              delete
+            </button>
+          </div>
         </div>
       </div>
+      <hr />
     </React.Fragment>
   );
 };

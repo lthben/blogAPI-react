@@ -108,19 +108,6 @@ const Update = (props) => {
           ></textarea>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="author" className="form-label">
-            Author:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="author"
-            name="author"
-            value={post.author}
-            onChange={handleInputChange}
-          />
-        </div>
         <button
           type="button"
           className="btn btn-primary"
