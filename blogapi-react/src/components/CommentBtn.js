@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import PostComment from "./PostComment";
 
 const CommentBtn = (props) => {
-  const handleClick = () => {};
+  const [visibility, setVisibility] = useState(false);
+
+  const handleClick = () => {
+    setVisibility(!visibility);
+  };
 
   return (
     <>
@@ -15,6 +20,7 @@ const CommentBtn = (props) => {
       >
         comment
       </button>
+      <PostComment visibility={visibility} />
     </>
   );
 };

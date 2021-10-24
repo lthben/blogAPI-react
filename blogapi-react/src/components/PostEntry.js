@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import CommentBtn from "./CommentBtn";
 import CommentList from "./CommentList";
-import { Route, Link } from "react-router-dom";
 
 // props.post:
 // author: "Mary";
@@ -95,25 +94,15 @@ const PostEntry = (props) => {
           <p className="mt-3">{props.post.content}</p>
           <div className="row mb-3">
             <div className="col">
-              <CommentBtn commentBtnVisibility={commentBtnVisibility}>
-                comment
-              </CommentBtn>
+              <CommentBtn commentBtnVisibility={commentBtnVisibility} />
             </div>
             <div className="col text-end ">
-              <Link
-                to="${props.post.slug}/comments"
-                className="text-decoration-none lh-lg"
-              >
-                Comments
-              </Link>
+              <CommentList slug={props.post.slug} />
             </div>
           </div>
         </div>
       </div>
       <hr />
-      <Route path="${props.post.slug}/comments">
-        <CommentList slug={props.post.slug} />
-      </Route>
     </React.Fragment>
   );
 };
