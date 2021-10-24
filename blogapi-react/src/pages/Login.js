@@ -71,13 +71,12 @@ const Login = (props) => {
         // const data = await response.json();
         // console.log("Login response: ", response);
         const res = await response.json();
-        // console.log("Login response json: ", res);
+        console.log("res: ", res);
+        console.log("response: ", response);
         if (response.status !== 200) {
           console.log("failed to login");
+          alert("Error signing in. Please check your credentials.");
           //   console.log(data.status);
-          alert(
-            "Login failed. Please check that your credentials are correct."
-          );
           return Promise.reject("failed to login ");
         }
         await getTokens();

@@ -32,7 +32,7 @@ const CommentList = (props) => {
           refreshToken();
           getList();
         } else if (response.status === 200) {
-          console.log("list ok");
+          console.log("comments list ok");
           setCommentsList(res);
         } else {
           console.log("Something went wrong");
@@ -74,7 +74,7 @@ const CommentList = (props) => {
           Comments
         </button>
       </div>
-      <div className={visibility ? "visible" : "invisible"}>{listJSX}</div>
+      <div>{visibility ? listJSX : null}</div>
     </>
   );
 };
