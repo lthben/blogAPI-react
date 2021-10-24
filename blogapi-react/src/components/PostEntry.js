@@ -33,7 +33,7 @@ const PostEntry = (props) => {
     setCommentBtnVisibility(props.isLoggedIn);
     if (
       props.isLoggedIn === true &&
-      props.post.author === localStorage.getItem("firstname")
+      props.post.author === sessionStorage.getItem("firstname")
     ) {
       setVisibility(true);
     } else {

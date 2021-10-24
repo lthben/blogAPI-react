@@ -4,7 +4,7 @@ export const handleDelete = async (postID) => {
   const URI = "http://localhost:8000/api/post-delete/" + postID + "/";
   await fetch(URI, {
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+      Authorization: "Bearer " + sessionStorage.getItem("access_token"), //Command K, S to save without auto-format
       "Content-Type": "application/json",
     },
     method: "DELETE",

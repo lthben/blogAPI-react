@@ -24,7 +24,7 @@ const Update = (props) => {
       "http://localhost:8000/api/post-update/" + props.thisPost.id + "/";
     await fetch(URI, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+        Authorization: "Bearer " + sessionStorage.getItem("access_token"), //Command K, S to save without auto-format
         "Content-Type": "application/json",
       },
       method: "POST",

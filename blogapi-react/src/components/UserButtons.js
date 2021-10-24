@@ -11,16 +11,17 @@ const UserButtons = (props) => {
 
   const handleLogout = () => {
     props.setIsLoggedIn(false);
-    localStorage.setItem("isLoggedIn", false);
-    localStorage.setItem("access_token", null);
-    localStorage.setItem("refresh_token", null);
-    localStorage.setItem("firstname", "logged out");
+    sessionStorage.setItem("isLoggedIn", "false");
+    sessionStorage.setItem("access_token", "");
+    sessionStorage.setItem("refresh_token", "");
+    sessionStorage.setItem("firstname", "");
+    // sessionStorage.clear();
   };
 
   const loggedInJSX = (
     <>
       Welcome &nbsp;
-      <b>{localStorage.getItem("firstname")}</b>
+      <b>{sessionStorage.getItem("firstname")}</b>
       <Link to="/create">
         <button type="button" className="btn btn-primary mx-3">
           Create

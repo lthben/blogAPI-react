@@ -2,7 +2,7 @@ export const refreshToken = async () => {
   const URI = "http://localhost:8000/api/token/refresh/";
   console.log("refreshing token... ");
 
-  const refreshToken = localStorage.getItem("refresh_token");
+  const refreshToken = sessionStorage.getItem("refresh_token");
   //   console.log("refresh token: ", refreshToken);
 
   await fetch(URI, {
@@ -15,7 +15,7 @@ export const refreshToken = async () => {
     .then(async (response) => {
       const res = await response.json();
       //   console.log("Get new access token response: ", res);
-      await localStorage.setItem("access_token", res.access);
+      await sessionStorage.setItem("access_token", res.access);
     })
     .catch((error) => {
       console.log(error);

@@ -15,7 +15,7 @@ const Create = (props) => {
   const [post, setPost] = useState({
     title: "",
     content: "",
-    author: localStorage.getItem("firstname"),
+    author: sessionStorage.getItem("firstname"),
     slug: "",
   });
 
@@ -25,7 +25,7 @@ const Create = (props) => {
 
     await fetch(URI, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"), //Command K, S to save without auto-format
+        Authorization: "Bearer " + sessionStorage.getItem("access_token"), //Command K, S to save without auto-format
         "Content-Type": "application/json",
       },
       method: "POST",

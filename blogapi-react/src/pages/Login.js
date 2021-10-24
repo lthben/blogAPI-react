@@ -28,9 +28,9 @@ const Login = (props) => {
       .then(async (response) => {
         const res = await response.json();
         console.log("got tokens! ");
-        await localStorage.setItem("access_token", res.access);
-        await localStorage.setItem("refresh_token", res.refresh);
-        console.log("localstorage tokens set!");
+        await sessionStorage.setItem("access_token", res.access);
+        await sessionStorage.setItem("refresh_token", res.refresh);
+        console.log("sessionStorage tokens set!");
       })
       .catch((error) => {
         console.log(error);
@@ -40,7 +40,7 @@ const Login = (props) => {
   const getFirstName = async () => {
     await fetch("http://localhost:8000/user/firstname/", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
+        Authorization: "Bearer " + sessionStorage.getItem("access_token"),
         "Content-Type": "application/json",
       },
       method: "POST",
@@ -49,7 +49,7 @@ const Login = (props) => {
       .then(async (response) => {
         const res = await response.json();
         console.log("first name obtained!");
-        localStorage.setItem("firstname", res);
+        sessionStorage.setItem("firstname", res);
       })
       .catch((error) => {
         console.log(error);
@@ -83,7 +83,7 @@ const Login = (props) => {
         await getTokens();
         await getFirstName();
 
-        localStorage.setItem("isLoggedIn", true);
+        sessionStorage.setItem("isLoggedIn", "true");
         props.setIsLoggedIn(true);
         console.log("successfully logged in: ");
         alert("Successful login");
