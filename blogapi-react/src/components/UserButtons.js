@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const UserButtons = (props) => {
   useEffect(() => {
-    // console.log(
-    //   "in UserButtons UseEffect, props.isLoggedIn: ",
-    //   props.isLoggedIn
-    // );
+    console.log(
+      "in UserButtons UseEffect, props.isLoggedIn: ",
+      props.isLoggedIn
+    );
   }, [props.isLoggedIn]);
 
   const handleLogout = () => {

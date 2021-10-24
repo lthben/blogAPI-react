@@ -1,6 +1,9 @@
 import { handleDelete } from "./Delete";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import CommentBtn from "./CommentBtn";
+import CommentList from "./CommentList";
+import { Route, Link } from "react-router-dom";
 
 // props.post:
 // author: "Mary";
@@ -17,16 +20,17 @@ import { useHistory } from "react-router-dom";
 // thisPost={props.thisPost}
 // setThisPost={props.setThisPost}
 // isLoggedIn={props.isLoggedIn}
-// setIsLoggedIn={props.setIsLoggedIn}
 
 const PostEntry = (props) => {
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
 
-  const [visibility, setVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(false); //update and delete buttons
+  const [commentBtnVisibility, setCommentBtnVisibility] = useState(false); //comment button
 
   useEffect(() => {
+    setCommentBtnVisibility(props.isLoggedIn);
     if (
       props.isLoggedIn === true &&
       props.post.author === localStorage.getItem("firstname")
@@ -57,38 +61,59 @@ const PostEntry = (props) => {
 
   return (
     <React.Fragment>
-      <div className="row ">
-        <div className="col ">
-          <h3 className="mt-3">{props.post.title}</h3>
+      <div className="row">
+        <div className="col">
+          <div className="row align-items-center">
+            <h3 className="col mt-3">{props.post.title} </h3>
+            <div className="col text-end">
+              <button
+                type="button"
+                className={
+                  "btn-sm btn-primary mx-1 " +
+                  (visibility ? "visible" : "invisible")
+                }
+                onClick={handleClick}
+              >
+                update
+              </button>
+              <button
+                type="button"
+                className={
+                  "btn-sm btn-primary mx-1 " +
+                  (visibility ? "visible" : "invisible")
+                }
+                onClick={myHandleDelete}
+              >
+                delete
+              </button>
+            </div>
+          </div>
           <small>
             {props.post.author} &nbsp; {date} &nbsp; {time}
           </small>
+
           <p className="mt-3">{props.post.content}</p>
-          <div className="mb-3">
-            <button
-              type="button"
-              className={
-                "btn-sm btn-primary mx-1 " +
-                (visibility ? "visible" : "invisible")
-              }
-              onClick={handleClick}
-            >
-              update
-            </button>
-            <button
-              type="button"
-              className={
-                "btn-sm btn-primary mx-1 " +
-                (visibility ? "visible" : "invisible")
-              }
-              onClick={myHandleDelete}
-            >
-              delete
-            </button>
+          <div className="row mb-3">
+            <div className="col">
+              <CommentBtn commentBtnVisibility={commentBtnVisibility}>
+                comment
+              </CommentBtn>
+            </div>
+            <div className="col text-end ">
+              <Link
+                to="${props.post.slug}/comments"
+                className="text-decoration-none lh-lg"
+              >
+                Comments
+              </Link>
+            </div>
           </div>
         </div>
       </div>
       <hr />
+      <Route path="${props.post.slug}/comments">
+        <CommentList slug={props.post.slug} />
+      </Route>
     </React.Fragment>
   );
 };

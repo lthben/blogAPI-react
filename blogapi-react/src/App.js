@@ -24,6 +24,13 @@ function App() {
   });
 
   useEffect(() => {
+    // setIsLoggedIn(!isLoggedIn); //to trigger the components to render on browser refresh
+    // setTimeout(() => {}, 100);
+    // setIsLoggedIn(!isLoggedIn);
+    // setTimeout(() => {}, 100);
+    // setIsLoggedIn(!isLoggedIn);
+    // setTimeout(() => {}, 100);
+    // setIsLoggedIn(!isLoggedIn);
     const loginStatus = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(loginStatus);
     console.log("in App useEffect, isLoggedIn: ", loginStatus);

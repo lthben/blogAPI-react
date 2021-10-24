@@ -41,7 +41,7 @@ const SignUp = (props) => {
           return Promise.reject("failed to sign up ");
         }
         console.log("successfully signed up ");
-        props.setIsLoggedIn(true);
+        // props.setIsLoggedIn(true);
 
         alert(
           "Successful sign up. Please proceed to log in with the same credentials."

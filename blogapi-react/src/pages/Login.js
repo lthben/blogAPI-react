@@ -69,9 +69,9 @@ const Login = (props) => {
           password: "",
         });
         // const data = await response.json();
-        console.log("Login response: ", response);
+        // console.log("Login response: ", response);
         const res = await response.json();
-        console.log("Login response json: ", res);
+        // console.log("Login response json: ", res);
         if (response.status !== 200) {
           console.log("failed to login");
           //   console.log(data.status);
@@ -81,14 +81,11 @@ const Login = (props) => {
           return Promise.reject("failed to login ");
         }
         await getTokens();
-
-        console.log("successfully logged in: ");
-
-        localStorage.setItem("isLoggedIn", true);
-
         await getFirstName();
 
+        localStorage.setItem("isLoggedIn", true);
         props.setIsLoggedIn(true);
+        console.log("successfully logged in: ");
         alert("Successful login");
 
         history.push("/");
