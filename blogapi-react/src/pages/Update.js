@@ -36,7 +36,7 @@ const Update = (props) => {
         if (res.code === "token_not_valid") {
           refreshToken();
           updatePost();
-        } else if (res === "updated") {
+        } else if (res === "post updated") {
           alert("post updated!");
           props.setRefreshList(!props.refreshList);
           history.push("/");
