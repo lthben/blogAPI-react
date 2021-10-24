@@ -84,6 +84,7 @@ const Login = (props) => {
         await getFirstName();
 
         sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("username", data.username);
         props.setIsLoggedIn(true);
         console.log("successfully logged in: ");
         alert("Successful login");

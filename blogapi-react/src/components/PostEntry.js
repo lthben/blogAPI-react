@@ -1,7 +1,7 @@
 import { handleDelete } from "./Delete";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import CommentBtn from "./CommentBtn";
+import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
 // props.post:
@@ -26,19 +26,20 @@ const PostEntry = (props) => {
   let time = props.post.created_on.substring(11, 16);
 
   const [visibility, setVisibility] = useState(false); //update and delete buttons
-  const [commentBtnVisibility, setCommentBtnVisibility] = useState(false); //comment button
+  const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment button
+  const [refreshCommentsList, setRefreshCommentsList] = useState(false);
 
   useEffect(() => {
-    setCommentBtnVisibility(props.isLoggedIn);
+    setCommentFormVisibility(props.isLoggedIn);
     if (
       props.isLoggedIn === true &&
-      props.post.author === sessionStorage.getItem("firstname")
+      props.post.author === sessionStorage.getItem("username")
     ) {
       setVisibility(true);
     } else {
       setVisibility(false);
     }
-    console.log("in PostEntry, props.isLoggedIn: ", props.isLoggedIn);
+    // console.log("in PostEntry, props.isLoggedIn: ", props.isLoggedIn);
     // console.log("vibisility of delete and update buttons: ", visibility);
   }, [props.isLoggedIn]);
 
@@ -73,7 +74,7 @@ const PostEntry = (props) => {
                 }
                 onClick={handleClick}
               >
-                update
+                edit
               </button>
               <button
                 type="button"
@@ -88,16 +89,26 @@ const PostEntry = (props) => {
             </div>
           </div>
           <small>
-            {props.post.author} &nbsp; {date} &nbsp; {time}
+            <i>
+              - {props.post.author} on {date} {time}
+            </i>
           </small>
 
           <p className="mt-3">{props.post.content}</p>
           <div className="row mb-3">
             <div className="col">
-              <CommentBtn commentBtnVisibility={commentBtnVisibility} />
+              <CommentForm
+                commentFormVisibility={commentFormVisibility}
+                postID={props.post.id}
+                refreshCommentsList={refreshCommentsList}
+                setRefreshCommentsList={setRefreshCommentsList}
+              />
             </div>
             <div className="col text-end ">
-              <CommentList slug={props.post.slug} />
+              <CommentList
+                postID={props.post.id}
+                refreshCommentsList={refreshCommentsList}
+              />
             </div>
           </div>
         </div>

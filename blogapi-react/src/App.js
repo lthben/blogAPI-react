@@ -27,7 +27,7 @@ function App() {
     const loginStatus = sessionStorage.getItem("isLoggedIn");
     if (loginStatus === "true") setIsLoggedIn(true);
     else setIsLoggedIn(false);
-    console.log("in App useEffect, isLoggedIn: ", loginStatus);
+    // console.log("in App useEffect, isLoggedIn: ", loginStatus);
 
     return function cleanup() {
       sessionStorage.clear();

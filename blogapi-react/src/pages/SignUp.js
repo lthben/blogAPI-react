@@ -21,14 +21,14 @@ const SignUp = (props) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     fetch("http://localhost:8000/user/signup/", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(data),
     })
-      .then((response) => {
+      .then(async (response) => {
         setData({
           first_name: "",
           last_name: "",
@@ -36,8 +36,10 @@ const SignUp = (props) => {
           email: "",
           password: "",
         });
-        // console.log("res: ", typeof response.status);
+        // const res = await response.json();
+        console.log("sign up response: ", response);
         if (response.status !== 201) {
+          alert("Failed to sign up. Username already exists.");
           return Promise.reject("failed to sign up ");
         }
         console.log("successfully signed up ");
