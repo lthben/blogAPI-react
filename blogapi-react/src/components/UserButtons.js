@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const UserButtons = (props) => {
-  useEffect(() => {
-    // console.log(
-    //   "in UserButtons UseEffect, props.isLoggedIn: ",
-    //   props.isLoggedIn
-    // );
-  }, [props.isLoggedIn]);
+  // props: refreshList, setRefreshList, isLoggedIn, setIsLoggedIn
+  let history = useHistory();
+
+  useEffect(() => {}, [props.isLoggedIn]);
 
   const handleLogout = () => {
     props.setIsLoggedIn(false);
@@ -15,7 +13,12 @@ const UserButtons = (props) => {
     sessionStorage.setItem("access_token", "");
     sessionStorage.setItem("refresh_token", "");
     sessionStorage.setItem("firstname", "");
-    // sessionStorage.clear();
+    history.push("/");
+  };
+
+  const handleMyBlogBtn = () => {
+    props.setRefreshList(!props.refreshList);
+    history.push("/myblog");
   };
 
   const loggedInJSX = (
@@ -23,11 +26,25 @@ const UserButtons = (props) => {
       Welcome &nbsp;
       <b>{sessionStorage.getItem("firstname")}</b>
       <Link to="/create">
-        <button type="button" className="btn btn-primary mx-3">
+        <button type="button" className="btn btn-primary ms-5">
           Create
         </button>
       </Link>
-      <button type="button" className="btn btn-primary" onClick={handleLogout}>
+      <button
+        type="button"
+        className="btn btn-primary ms-3"
+        onClick={handleMyBlogBtn}
+      >
+        My Blog
+      </button>
+      <button type="button" className="btn btn-primary ms-3">
+        My Profile
+      </button>
+      <button
+        type="button"
+        className="btn btn-primary ms-3"
+        onClick={handleLogout}
+      >
         Logout
       </button>
     </>

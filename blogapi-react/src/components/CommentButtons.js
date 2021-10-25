@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { refreshToken } from "./RefreshToken";
 
 const CommentButtons = (props) => {
-  //props: comment, refreshCommentsList, setRefreshCommentsList
+  //props: comment, refreshCommentsList, setRefreshCommentsList, isLoggedIn
   const [isEditing, setIsEditing] = useState(false);
   const [comment, setComment] = useState({ ...props.comment });
+
+  useEffect(() => {}, [props.isLoggedIn]);
 
   const handleEditBtn = () => {
     setIsEditing(true);
@@ -114,7 +116,9 @@ const CommentButtons = (props) => {
     </form>
   );
 
-  return <>{isEditing ? inputJSX : buttonsJSX}</>;
+  return (
+    <>{props.isLoggedIn ? <>{isEditing ? inputJSX : buttonsJSX}</> : null}</>
+  );
 };
 
 export default CommentButtons;

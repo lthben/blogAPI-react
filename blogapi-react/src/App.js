@@ -8,12 +8,12 @@ import React, { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import UserButtons from "./components/UserButtons";
+import MyBlog from "./pages/MyBlog";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
-  // const [accessToken, setAccessToken] = useState("");
-  // const [refreshToken, setRefreshToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [refreshList, setRefreshList] = useState(false);
+  const [refreshList, setRefreshList] = useState(false); //home list
   const [thisPost, setThisPost] = useState({
     //for initialising the update post
     title: "",
@@ -22,16 +22,17 @@ function App() {
     slug: "",
     id: "",
   });
+  const [list, setList] = useState([]); //home list
+  // const [refreshBlogList, setRefreshBlogList] = useState(false); //myblog list
+  const [blogList, setBlogList] = useState([]); //myblog list
+  // const [username, setUsername] = useState("");
 
   useEffect(() => {
+    // setUsername(sessionStorage.getItem("username"));
     const loginStatus = sessionStorage.getItem("isLoggedIn");
     if (loginStatus === "true") setIsLoggedIn(true);
     else setIsLoggedIn(false);
     // console.log("in App useEffect, isLoggedIn: ", loginStatus);
-
-    return function cleanup() {
-      sessionStorage.clear();
-    };
   }, []);
 
   return (
@@ -44,7 +45,12 @@ function App() {
           </Link>
         </div>
         <div className="col-md-8 text-end">
-          <UserButtons isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <UserButtons
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            refreshList={refreshList}
+            setRefreshList={setRefreshList}
+          />
         </div>
       </nav>
       <hr />
@@ -57,12 +63,12 @@ function App() {
               refreshList={refreshList}
               setRefreshList={setRefreshList}
               isLoggedIn={isLoggedIn}
+              list={list}
+              setList={setList}
             />
           </Route>
           <Route path="/create">
-            <Create
-            // accessToken={accessToken}
-            />
+            <Create />
           </Route>
           <Route path="/update">
             <Update
@@ -73,17 +79,26 @@ function App() {
             />
           </Route>
           <Route path="/login">
-            <Login
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              // accessToken={accessToken}
-              // refreshToken={refreshToken}
-              // setAccessToken={setAccessToken}
-              // setRefreshToken={setRefreshToken}
-            />
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="/signup">
             <SignUp isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route path="/myblog">
+            <MyBlog
+              list={list}
+              blogList={blogList}
+              setBlogList={setBlogList}
+              isLoggedIn={isLoggedIn}
+              thisPost={thisPost}
+              setThisPost={setThisPost}
+              username={sessionStorage.getItem("username")}
+              refreshList={refreshList}
+              setRefreshList={setRefreshList}
+            />
+          </Route>
+          <Route path="/myprofile">
+            <MyProfile />
           </Route>
           <Redirect to="/" />
         </Switch>

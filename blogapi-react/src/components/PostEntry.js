@@ -12,15 +12,8 @@ import CommentList from "./CommentList";
 // slug: "my-second-post";
 // title: "my second post";
 
-// props:
-// post = { post }
-// refreshList={props.refreshList}
-// setRefreshList={props.setRefreshList}
-// thisPost={props.thisPost}
-// setThisPost={props.setThisPost}
-// isLoggedIn={props.isLoggedIn}
-
 const PostEntry = (props) => {
+  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
@@ -30,25 +23,32 @@ const PostEntry = (props) => {
   const [refreshCommentsList, setRefreshCommentsList] = useState(false);
 
   useEffect(() => {
-    setCommentFormVisibility(props.isLoggedIn);
-    if (
-      props.isLoggedIn === true &&
-      props.post.author === sessionStorage.getItem("username")
-    ) {
-      setVisibility(true);
-    } else {
-      setVisibility(false);
+    let isMounted = true;
+    if (isMounted === true) {
+      setCommentFormVisibility(props.isLoggedIn);
+      if (
+        props.isLoggedIn === true &&
+        props.post.author === sessionStorage.getItem("username")
+      ) {
+        setVisibility(true);
+      } else {
+        setVisibility(false);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
     // console.log("in PostEntry, props.isLoggedIn: ", props.isLoggedIn);
     // console.log("vibisility of delete and update buttons: ", visibility);
-  }, [props.isLoggedIn]);
+  }, [props.isLoggedIn, props.refreshList]);
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
     props.setRefreshList(!props.refreshList);
+    history.push("/");
   };
 
-  const handleClick = () => {
+  const handleEditBtn = () => {
     props.setThisPost({
       title: props.post.title,
       content: props.post.content,
@@ -72,7 +72,7 @@ const PostEntry = (props) => {
                   "btn-sm btn-primary mx-1 " +
                   (visibility ? "visible" : "invisible")
                 }
-                onClick={handleClick}
+                onClick={handleEditBtn}
               >
                 edit
               </button>
@@ -109,6 +109,7 @@ const PostEntry = (props) => {
                 postID={props.post.id}
                 refreshCommentsList={refreshCommentsList}
                 setRefreshCommentsList={setRefreshCommentsList}
+                isLoggedIn={props.isLoggedIn}
               />
             </div>
           </div>
