@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Link, Redirect, Switch } from "react-router-dom";
-import List from "./pages/Read";
+import Home from "./pages/Home";
 import logo from "./logo.png";
 import Create from "./pages/Create";
 import Update from "./pages/Update";
@@ -23,9 +23,10 @@ function App() {
     id: "",
   });
   const [list, setList] = useState([]); //home list
-  // const [refreshBlogList, setRefreshBlogList] = useState(false); //myblog list
+  const [refreshBlogList, setRefreshBlogList] = useState(false); //myblog list
   const [blogList, setBlogList] = useState([]); //myblog list
   // const [username, setUsername] = useState("");
+  const [pageAt, setPageAt] = useState("home"); //or "blog"
 
   useEffect(() => {
     // setUsername(sessionStorage.getItem("username"));
@@ -57,7 +58,7 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/">
-            <List
+            <Home
               thisPost={thisPost}
               setThisPost={setThisPost}
               refreshList={refreshList}
@@ -65,17 +66,21 @@ function App() {
               isLoggedIn={isLoggedIn}
               list={list}
               setList={setList}
+              pageAt={pageAt}
+              setPageAt={setPageAt}
             />
           </Route>
           <Route path="/create">
-            <Create />
+            <Create pageAt={pageAt} />
           </Route>
           <Route path="/update">
             <Update
               thisPost={thisPost}
               setThisPost={setThisPost}
+              setList={setList}
               refreshList={refreshList}
               setRefreshList={setRefreshList}
+              pageAt={pageAt}
             />
           </Route>
           <Route path="/login">
@@ -86,15 +91,20 @@ function App() {
           </Route>
           <Route path="/myblog">
             <MyBlog
-              list={list}
-              blogList={blogList}
-              setBlogList={setBlogList}
-              isLoggedIn={isLoggedIn}
               thisPost={thisPost}
               setThisPost={setThisPost}
-              username={sessionStorage.getItem("username")}
               refreshList={refreshList}
               setRefreshList={setRefreshList}
+              refreshBlogList={refreshBlogList}
+              setRefreshBlogList={setRefreshBlogList}
+              isLoggedIn={isLoggedIn}
+              list={list}
+              setList={setList}
+              pageAt={pageAt}
+              setPageAt={setPageAt}
+              blogList={blogList}
+              setBlogList={setBlogList}
+              username={sessionStorage.getItem("username")}
             />
           </Route>
           <Route path="/myprofile">

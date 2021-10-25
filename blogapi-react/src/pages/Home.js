@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PostEntry from "../components/PostEntry";
 
-const List = (props) => {
-  //  props: thisPost, setThisPost, refreshList, setRefreshList, isLoggedIn, list, setList
+const Home = (props) => {
+  //  props: thisPost, setThisPost, refreshList, setRefreshList, isLoggedIn, list, setList, pageAt, setPageAt
 
   useEffect(() => {
     let isMounted = true;
-    // console.log("getList in Read.js called ... ");
+    props.setPageAt("home");
+
     const getList = async () => {
       const URI = "http://localhost:8000/api/post-list/";
       await fetch(URI, {
@@ -16,17 +17,19 @@ const List = (props) => {
         .then(async (response) => {
           const data = await response.json();
           if (isMounted) props.setList(data);
-          console.log("In Read.js: Data: ", data);
         })
         .catch((error) => {
           console.log(error);
         });
     };
     getList();
+
     return () => {
       isMounted = false;
     };
   }, [props.refreshList, props.isLoggedIn]);
+
+  // console.log("list: ", props.list);
 
   const allPosts = props.list.map((post, index) => {
     return (
@@ -38,6 +41,8 @@ const List = (props) => {
           thisPost={props.thisPost}
           setThisPost={props.setThisPost}
           isLoggedIn={props.isLoggedIn}
+          pageAt={props.pageAt}
+          setList={props.setList}
         />
       </div>
     );
@@ -46,4 +51,4 @@ const List = (props) => {
   return <div>{allPosts}</div>;
 };
 
-export default List;
+export default Home;

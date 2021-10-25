@@ -4,13 +4,7 @@ import { refreshToken } from "../components/RefreshToken";
 
 const Update = (props) => {
   let history = useHistory();
-  // props:
-  // author: "Mary";
-  // content: "lorem ipsum";
-  // created_on: "2021-10-20T04:41:12.388510Z";
-  // id: "f6dace8b-2d1c-46d2-8280-d3da52387514";
-  // slug: "my-second-post";
-  // title: "my second post";
+  // props: thisPost, setThisPost, pageAt, refreshList, setRefreshList
 
   const [post, setPost] = useState({
     title: props.thisPost.title,
@@ -39,7 +33,11 @@ const Update = (props) => {
         } else if (res === "post updated") {
           alert("post updated!");
           props.setRefreshList(!props.refreshList);
-          history.push("/");
+          // console.log("pageAt in Update: ", props.pageAt);
+
+          if (props.pageAt === "home") {
+            history.push("/");
+          } else if (props.pageAt === "blog") history.push("/myblog");
         } else {
           alert("error updating. Please try again.");
         }

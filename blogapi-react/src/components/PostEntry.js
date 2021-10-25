@@ -4,16 +4,8 @@ import { useHistory } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
-// props.post:
-// author: "Mary";
-// content: "lorem ipsum";
-// created_on: "2021-10-20T04:41:12.388510Z";
-// id: "f6dace8b-2d1c-46d2-8280-d3da52387514";
-// slug: "my-second-post";
-// title: "my second post";
-
 const PostEntry = (props) => {
-  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn
+  // props: post, refreshList, setRefreshList, refreshBlogList, setRefreshBlogList, thisPost, setThisPost, isLoggedIn, pageAt
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
@@ -44,8 +36,16 @@ const PostEntry = (props) => {
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
+    console.log("pageAt in PostEntry Delete: ", props.pageAt);
     props.setRefreshList(!props.refreshList);
-    history.push("/");
+    props.setRefreshBlogList(!props.refreshBlogList);
+
+    if (props.pageAt === "home") {
+      history.push("/");
+    } else if (props.pageAt === "blog") {
+      // history.push("/");
+      history.push("/myblog");
+    }
   };
 
   const handleEditBtn = () => {
