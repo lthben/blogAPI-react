@@ -108,6 +108,7 @@ const PostEntry = (props) => {
               <CommentList
                 postID={props.post.id}
                 refreshCommentsList={refreshCommentsList}
+                setRefreshCommentsList={setRefreshCommentsList}
               />
             </div>
           </div>

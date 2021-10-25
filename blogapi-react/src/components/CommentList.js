@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { refreshToken } from "./RefreshToken";
+import CommentButtons from "./CommentButtons";
 
 const CommentList = (props) => {
-  //props: postID, refreshCommentsList
+  //props: postID, refreshCommentsList, setRefreshCommentsList
 
   const [visibility, setVisibility] = useState(false);
   const [commentsList, setCommentsList] = useState([]);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     getList();
+    setUsername(sessionStorage.getItem("username"));
   }, [props.refreshCommentsList]);
 
   // console.log("postID: ", props.postID);
@@ -19,7 +22,7 @@ const CommentList = (props) => {
 
     await fetch(URI, {
       headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("access_token"), //Command K, S to save without auto-format
+        // Authorization: "Bearer " + sessionStorage.getItem("access_token"),
         "Content-Type": "application/json",
       },
       method: "GET",
@@ -47,8 +50,6 @@ const CommentList = (props) => {
     setVisibility(!visibility);
   };
 
-  // const listJSX = <h1>hello</h1>;
-
   const listJSX = commentsList.map((ele, index) => {
     return (
       <div key={index}>
@@ -58,7 +59,15 @@ const CommentList = (props) => {
             - {ele.author} on {ele.created_on.substring(0, 10)}{" "}
             {ele.created_on.substring(11, 16)}
           </i>
-        </small>
+        </small>{" "}
+        <br />
+        {ele.author === username ? (
+          <CommentButtons
+            comment={ele}
+            refreshCommentsList={props.refreshCommentsList}
+            setRefreshCommentsList={props.setRefreshCommentsList}
+          />
+        ) : null}
       </div>
     );
   });
@@ -71,7 +80,7 @@ const CommentList = (props) => {
           className="btn btn-link text-decoration-none"
           onClick={handleClick}
         >
-          Comments
+          Comments {visibility ? <>&darr;</> : <>&rarr;</>}
         </button>
       </div>
       <div>{visibility ? listJSX : null}</div>
