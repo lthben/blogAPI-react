@@ -23,3 +23,7 @@ div {
   outline: none !important;
   box-shadow: none;
 }
+
+#welcome-text {
+  color: white;
+}

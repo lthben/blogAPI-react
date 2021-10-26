@@ -79,22 +79,22 @@ const PostEntry = (props) => {
               <button
                 type="button"
                 className={
-                  "btn-sm btn-primary mx-1 " +
+                  "btn-sm btn-secondary mx-1 " +
                   (editBtnVisibility ? "visible" : "invisible")
                 }
                 onClick={handleEditBtn}
               >
-                edit
+                <i className="bi bi-pen-fill"></i>
               </button>
               <button
                 type="button"
                 className={
-                  "btn-sm btn-primary mx-1 " +
+                  "btn-sm btn-secondary mx-1 " +
                   (editBtnVisibility ? "visible" : "invisible")
                 }
                 onClick={myHandleDelete}
               >
-                delete
+                <i className="bi bi-trash-fill"></i>
               </button>
             </div>
           </div>

@@ -19,50 +19,53 @@ const UserButtons = (props) => {
   };
 
   const loggedInJSX = (
-    <div className="row justify-content-end">
-      <div className="col-auto align-self-center text-end">
-        Welcome &nbsp;
-        <b>{sessionStorage.getItem("firstname")}</b>
-      </div>
-      <div className="col-auto text-end">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
         <Link to="/create">
           <button type="button" className="btn btn-primary">
-            Create
+            <i class="bi bi-pen"></i>&nbsp;Create
           </button>
         </Link>
+      </li>
+      <li class="nav-item">
         <button
           type="button"
           className="btn btn-primary ms-1"
           onClick={handleMyBlogBtn}
         >
-          My Blog
+          <i class="bi bi-book"></i>
+          &nbsp;My Blog
         </button>
+      </li>
+      <li class="nav-item">
         <Link to="/myprofile">
           <button type="button" className="btn btn-primary ms-1">
-            My Profile
+            <i class="bi bi-person"></i>&nbsp;My Profile
           </button>
         </Link>
+      </li>
+      <li class="nav-item">
         <button
           type="button"
           className="btn btn-primary ms-1"
           onClick={handleLogout}
         >
-          Logout
+          <i class="bi bi-box-arrow-right"></i>&nbsp;Logout
         </button>
-      </div>
-    </div>
+      </li>
+    </ul>
   );
 
   const loggedOutJSX = (
     <>
       <Link to="/signup">
         <button type="button" className="btn btn-primary mx-3">
-          Sign up
+          <i class="bi bi-person-plus"></i>&nbsp;Sign up
         </button>
       </Link>
       <Link to="/login">
         <button type="button" className="btn btn-primary">
-          Log in
+          <i class="bi bi-door-open"></i>&nbsp;Log in
         </button>
       </Link>
     </>
