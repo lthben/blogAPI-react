@@ -37,8 +37,8 @@ const Login = (props) => {
       });
   };
 
-  const getFirstName = async () => {
-    await fetch("http://localhost:8000/user/firstname/", {
+  const getUserData = async () => {
+    await fetch("http://localhost:8000/user/get-user-data/", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("access_token"),
         "Content-Type": "application/json",
@@ -48,8 +48,14 @@ const Login = (props) => {
     })
       .then(async (response) => {
         const res = await response.json();
-        console.log("first name obtained!");
-        sessionStorage.setItem("firstname", res);
+        console.log("res: ", res);
+        console.log("response: ", response);
+        // console.log("typeof res", typeof res);
+        const myArr = res.split(",");
+        sessionStorage.setItem("firstname", myArr[0]);
+        sessionStorage.setItem("lastname", myArr[1]);
+        sessionStorage.setItem("email", myArr[2]);
+        console.log("myArr: ", myArr);
       })
       .catch((error) => {
         console.log(error);
@@ -80,7 +86,7 @@ const Login = (props) => {
           return Promise.reject("failed to login ");
         }
         await getTokens();
-        await getFirstName();
+        await getUserData();
 
         sessionStorage.setItem("isLoggedIn", "true");
         sessionStorage.setItem("username", data.username);

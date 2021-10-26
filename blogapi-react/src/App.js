@@ -23,7 +23,7 @@ function App() {
     id: "",
   });
   const [list, setList] = useState([]); //home list
-  const [refreshBlogList, setRefreshBlogList] = useState(false); //myblog list
+  // const [refreshBlogList, setRefreshBlogList] = useState(false); //myblog list
   const [blogList, setBlogList] = useState([]); //myblog list
   // const [username, setUsername] = useState("");
   const [pageAt, setPageAt] = useState("home"); //or "blog"
@@ -95,8 +95,8 @@ function App() {
               setThisPost={setThisPost}
               refreshList={refreshList}
               setRefreshList={setRefreshList}
-              refreshBlogList={refreshBlogList}
-              setRefreshBlogList={setRefreshBlogList}
+              // refreshBlogList={refreshBlogList}
+              // setRefreshBlogList={setRefreshBlogList}
               isLoggedIn={isLoggedIn}
               list={list}
               setList={setList}
@@ -108,7 +108,11 @@ function App() {
             />
           </Route>
           <Route path="/myprofile">
-            <MyProfile />
+            <MyProfile
+              username={sessionStorage.getItem("username")}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
           </Route>
           <Redirect to="/" />
         </Switch>

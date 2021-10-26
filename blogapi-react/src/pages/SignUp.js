@@ -23,7 +23,7 @@ const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/user/signup/", {
+    await fetch("http://localhost:8000/user/signup/", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify(data),
@@ -60,68 +60,58 @@ const SignUp = (props) => {
       <div className="border border-dark registration-box">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <h3>Sign up for an account:</h3>
+            <h3>Sign up for an account</h3>
           </div>
+
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              First name
+            <label className="form-label">
+              User name (cannot be changed later)
             </label>
             <input
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
+              value={data.username}
+              name="username"
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">First name</label>
+            <input
+              type="text"
+              className="form-control"
               value={data.first_name}
               name="first_name"
               onChange={handleInputChange}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Last name
-            </label>
+            <label className="form-label">Last name</label>
             <input
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
               value={data.last_name}
               name="last_name"
               onChange={handleInputChange}
             />
           </div>
+
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              User name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="exampleInputEmail1"
-              value={data.username}
-              name="username"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
-            </label>
+            <label className="form-label">Email address</label>
             <input
               type="email"
               className="form-control"
-              id="exampleInputEmail1"
               value={data.email}
               name="email"
               onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
+            <label className="form-label">Password</label>
             <input
               type="password"
               className="form-control"
-              id="exampleInputPassword1"
               value={data.password}
               name="password"
               onChange={handleInputChange}

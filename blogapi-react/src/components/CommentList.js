@@ -3,9 +3,9 @@ import { refreshToken } from "./RefreshToken";
 import CommentButtons from "./CommentButtons";
 
 const CommentList = (props) => {
-  //props: postID, refreshCommentsList, setRefreshCommentsList, isLoggedIn
+  //props: postID, refreshCommentsList, setRefreshCommentsList, isLoggedIn, commentsVisibility ,setCommentsVisibility
 
-  const [visibility, setVisibility] = useState(false);
+  // const [visibility, setVisibility] = useState(false);
   const [commentsList, setCommentsList] = useState([]);
   const [username, setUsername] = useState("");
 
@@ -52,7 +52,7 @@ const CommentList = (props) => {
   // console.log("postID: ", props.postID);
 
   const handleClick = () => {
-    setVisibility(!visibility);
+    props.setCommentsVisibility(!props.commentsVisibility);
   };
 
   const listJSX = commentsList.map((ele, index) => {
@@ -86,10 +86,10 @@ const CommentList = (props) => {
           className="btn btn-link text-decoration-none"
           onClick={handleClick}
         >
-          Comments {visibility ? <>&darr;</> : <>&rarr;</>}
+          Comments {props.commentsVisibility ? <>&darr;</> : <>&rarr;</>}
         </button>
       </div>
-      <div>{visibility ? listJSX : null}</div>
+      <div>{props.commentsVisibility ? listJSX : null}</div>
     </>
   );
 };

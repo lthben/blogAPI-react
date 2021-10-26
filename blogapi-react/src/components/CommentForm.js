@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { refreshToken } from "./RefreshToken";
 
 const CommentForm = (props) => {
-  //props: commentFormVisibility, postID, setRefreshCommentsList, refreshCommentsList
+  //props: commentFormVisibility, postID, setRefreshCommentsList, refreshCommentsList, setCommentsVisibility
 
   const [comment, setComment] = useState({
     author: sessionStorage.getItem("username"),
@@ -35,6 +35,7 @@ const CommentForm = (props) => {
           console.log("comment created!");
           setComment({ ...comment, content: "" });
           props.setRefreshCommentsList(!props.refreshCommentsList);
+          props.setCommentsVisibility(true);
         } else {
           alert("Error creating. Please check all fields are filled in.");
         }

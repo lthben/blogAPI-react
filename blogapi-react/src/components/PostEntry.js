@@ -5,14 +5,15 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
 const PostEntry = (props) => {
-  // props: post, refreshList, setRefreshList, refreshBlogList, setRefreshBlogList, thisPost, setThisPost, isLoggedIn, pageAt
+  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn, pageAt
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
 
   const [visibility, setVisibility] = useState(false); //update and delete buttons
-  const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment button
+  const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment input field
   const [refreshCommentsList, setRefreshCommentsList] = useState(false);
+  const [commentsVisibility, setCommentsVisibility] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -38,7 +39,7 @@ const PostEntry = (props) => {
     await handleDelete(props.post.id);
     console.log("pageAt in PostEntry Delete: ", props.pageAt);
     props.setRefreshList(!props.refreshList);
-    props.setRefreshBlogList(!props.refreshBlogList);
+    // props.setRefreshBlogList(!props.refreshBlogList);
 
     if (props.pageAt === "home") {
       history.push("/");
@@ -102,6 +103,7 @@ const PostEntry = (props) => {
                 postID={props.post.id}
                 refreshCommentsList={refreshCommentsList}
                 setRefreshCommentsList={setRefreshCommentsList}
+                setCommentsVisibility={setCommentsVisibility}
               />
             </div>
             <div className="col text-end ">
@@ -110,6 +112,8 @@ const PostEntry = (props) => {
                 refreshCommentsList={refreshCommentsList}
                 setRefreshCommentsList={setRefreshCommentsList}
                 isLoggedIn={props.isLoggedIn}
+                commentsVisibility={commentsVisibility}
+                setCommentsVisibility={setCommentsVisibility}
               />
             </div>
           </div>

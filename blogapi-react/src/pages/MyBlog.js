@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostEntry from "../components/PostEntry";
 
 const MyBlog = (props) => {
-  //props: list, setList, blogList, setBlogList, refreshBlogList, setRefreshBlogList, isLoggedIn, thisPost, setThisPost, username, refreshList, setRefreshList, pageAt, setPageAt
+  //props: list, setList, blogList, setBlogList, isLoggedIn, thisPost, setThisPost, username, refreshList, setRefreshList, pageAt, setPageAt
 
   useEffect(() => {
     let isMounted = true;
@@ -57,8 +57,6 @@ const MyBlog = (props) => {
           setList={props.setList}
           refreshList={props.refreshList}
           setRefreshList={props.setRefreshList}
-          refreshBlogList={props.refreshBlogList}
-          setRefreshBlogList={props.setRefreshBlogList}
           thisPost={props.thisPost}
           setThisPost={props.setThisPost}
           isLoggedIn={props.isLoggedIn}

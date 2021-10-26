@@ -9,10 +9,7 @@ const UserButtons = (props) => {
 
   const handleLogout = () => {
     props.setIsLoggedIn(false);
-    sessionStorage.setItem("isLoggedIn", "false");
-    sessionStorage.setItem("access_token", "");
-    sessionStorage.setItem("refresh_token", "");
-    sessionStorage.setItem("firstname", "");
+    sessionStorage.clear();
     history.push("/");
   };
 
@@ -37,9 +34,11 @@ const UserButtons = (props) => {
       >
         My Blog
       </button>
-      <button type="button" className="btn btn-primary ms-3">
-        My Profile
-      </button>
+      <Link to="/myprofile">
+        <button type="button" className="btn btn-primary ms-3">
+          My Profile
+        </button>
+      </Link>
       <button
         type="button"
         className="btn btn-primary ms-3"
