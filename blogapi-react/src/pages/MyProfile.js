@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { refreshToken } from "../components/RefreshToken";
 
 const MyProfile = (props) => {
   // props: username, isLoggedIn, setIsLoggedIn
@@ -52,6 +53,10 @@ const MyProfile = (props) => {
         const res = await response.json();
         // console.log("response: ", response);
         // console.log("res: ", res);
+        if (res.code === "token_not_valid") {
+          refreshToken();
+          setUserData();
+        }
         if (response.status === 200) {
           console.log("user data updated successfully");
           alert("Profile updated successfully. Please log in again.");

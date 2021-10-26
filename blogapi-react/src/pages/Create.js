@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { refreshToken } from "../components/RefreshToken";
 
 const Create = (props) => {
-  //props: pageAt
+  //props: pageAt, refreshList, setRefreshList
 
   let history = useHistory();
 
@@ -35,7 +35,7 @@ const Create = (props) => {
           createPost();
         } else if (res === "ok") {
           // alert("post created!");
-
+          props.setRefreshList(!props.refreshList);
           if (props.pageAt === "home") {
             history.push("/");
           } else if (props.pageAt === "blog") history.push("/myblog");

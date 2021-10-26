@@ -14,7 +14,7 @@ const CommentForm = (props) => {
 
   const createComment = async () => {
     const URI = "http://localhost:8000/api/comment-create/";
-    console.log("creating comment: ", comment.content);
+    console.log("creating comment: ", comment);
 
     await fetch(URI, {
       headers: {
@@ -46,7 +46,8 @@ const CommentForm = (props) => {
   };
 
   const handleInputChange = (e) => {
-    setComment({ ...comment, content: e.target.value });
+    setComment({ ...comment, content: e.target.value, post_id: props.postID });
+    console.log("postID: ", props.postID);
   };
 
   const handleKeyDown = (e) => {

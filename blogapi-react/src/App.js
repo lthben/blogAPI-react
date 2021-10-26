@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import UserButtons from "./components/UserButtons";
 import MyBlog from "./pages/MyBlog";
 import MyProfile from "./pages/MyProfile";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,13 +40,16 @@ function App() {
   return (
     <div className="container">
       <nav className="row my-3 align-items-center">
-        <div className="col-md-4  text-start">
+        <div className="col-lg-3  text-start ">
           <Link to="/" style={{ textDecoration: "none" }}>
             <img src={logo} alt="logo" width="60px" height="60px" />
             <span id="log-site">log Site</span>
           </Link>
         </div>
-        <div className="col-md-8 text-end">
+        <div className="col-lg-3  text-start my-3 ">
+          <SearchBar />
+        </div>
+        <div className="col-lg-6 text-end">
           <UserButtons
             isLoggedIn={isLoggedIn}
             setIsLoggedIn={setIsLoggedIn}
@@ -72,7 +76,11 @@ function App() {
             />
           </Route>
           <Route path="/create">
-            <Create pageAt={pageAt} />
+            <Create
+              pageAt={pageAt}
+              refreshList={refreshList}
+              setRefreshList={setRefreshList}
+            />
           </Route>
           <Route path="/update">
             <Update

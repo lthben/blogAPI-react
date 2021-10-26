@@ -28,10 +28,7 @@ const CommentList = (props) => {
           const res = await response.json();
           // console.log("response: ", response);
           // console.log("res: ", res);
-          if (res.code === "token_not_valid") {
-            refreshToken();
-            getList();
-          } else if (response.status === 200) {
+          if (response.status === 200) {
             // console.log("comments list ok");
             if (isMounted) setCommentsList(res);
           } else {

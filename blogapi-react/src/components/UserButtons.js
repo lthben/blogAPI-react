@@ -19,34 +19,38 @@ const UserButtons = (props) => {
   };
 
   const loggedInJSX = (
-    <>
-      Welcome &nbsp;
-      <b>{sessionStorage.getItem("firstname")}</b>
-      <Link to="/create">
-        <button type="button" className="btn btn-primary ms-5">
-          Create
+    <div className="row justify-content-end">
+      <div className="col-auto align-self-center text-end">
+        Welcome &nbsp;
+        <b>{sessionStorage.getItem("firstname")}</b>
+      </div>
+      <div className="col-auto text-end">
+        <Link to="/create">
+          <button type="button" className="btn btn-primary">
+            Create
+          </button>
+        </Link>
+        <button
+          type="button"
+          className="btn btn-primary ms-1"
+          onClick={handleMyBlogBtn}
+        >
+          My Blog
         </button>
-      </Link>
-      <button
-        type="button"
-        className="btn btn-primary ms-3"
-        onClick={handleMyBlogBtn}
-      >
-        My Blog
-      </button>
-      <Link to="/myprofile">
-        <button type="button" className="btn btn-primary ms-3">
-          My Profile
+        <Link to="/myprofile">
+          <button type="button" className="btn btn-primary ms-1">
+            My Profile
+          </button>
+        </Link>
+        <button
+          type="button"
+          className="btn btn-primary ms-1"
+          onClick={handleLogout}
+        >
+          Logout
         </button>
-      </Link>
-      <button
-        type="button"
-        className="btn btn-primary ms-3"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
-    </>
+      </div>
+    </div>
   );
 
   const loggedOutJSX = (

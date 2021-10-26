@@ -16,7 +16,8 @@ export const handleDelete = async (postID) => {
         refreshToken();
         await handleDelete(postID);
       } else {
-        alert("post deleted!");
+        // alert("post deleted!");
+        console.log("post deleted");
       }
     })
     .catch((error) => {
