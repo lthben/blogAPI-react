@@ -105,6 +105,13 @@ const PostEntry = (props) => {
           </small>
 
           <p className="mt-3">{props.post.content}</p>
+          <p>
+            Tags:{" "}
+            <i>
+              #{props.post.author} #{props.post.slug}
+            </i>
+          </p>
+
           <div className="row mb-3">
             <div className="col">
               <CommentForm

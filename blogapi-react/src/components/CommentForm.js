@@ -9,8 +9,8 @@ const CommentForm = (props) => {
     post_id: props.postID,
     content: "",
   });
-
-  // console.log("postID: ", props.postID);
+  const [randNum, setRandNum] = useState(Math.round(Math.random() * 50));
+  const [inputVisibility, setInputVisibility] = useState(false);
 
   const createComment = async () => {
     const URI = "http://localhost:8000/api/comment-create/";
@@ -58,22 +58,42 @@ const CommentForm = (props) => {
     }
   };
 
+  const handleCommentBtn = () => {
+    setInputVisibility(!inputVisibility);
+  };
+
   return (
     <div className={props.commentFormVisibility ? "visible" : "invisible"}>
-      <form>
-        <div className="input-group input-group-sm mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="content"
-            name="content"
-            placeholder="Write a comment ..."
-            value={comment.content}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          ></input>
-        </div>
-      </form>
+      {randNum} Likes &nbsp;
+      <div className="btn-group mb-1 ">
+        <button type="button" className="btn btn-link text-decoration-none">
+          Like
+        </button>{" "}
+        &nbsp;{" "}
+        <button
+          type="button"
+          className="btn btn-link text-decoration-none"
+          onClick={handleCommentBtn}
+        >
+          Comment
+        </button>
+      </div>
+      {inputVisibility ? (
+        <form>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="content"
+              name="content"
+              placeholder="Write a comment ..."
+              value={comment.content}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            ></input>
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 };

@@ -17,3 +17,9 @@ div {
 .invisible {
   visibility: hidden !important;
 }
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
