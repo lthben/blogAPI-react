@@ -34,7 +34,7 @@ const Create = (props) => {
           // console.log("calling createPost again ... ");
           createPost();
         } else if (res === "ok") {
-          alert("post created!");
+          // alert("post created!");
 
           if (props.pageAt === "home") {
             history.push("/");

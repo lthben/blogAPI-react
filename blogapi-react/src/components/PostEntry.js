@@ -5,28 +5,22 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
 const PostEntry = (props) => {
-  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn, pageAt
+  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn, pageAt, username
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
 
-  const [visibility, setVisibility] = useState(false); //update and delete buttons
+  const [editBtnVisibility, setEditBtnVisibility] = useState(false); //update and delete buttons
   const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment input field
   const [refreshCommentsList, setRefreshCommentsList] = useState(false);
   const [commentsVisibility, setCommentsVisibility] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
+
     if (isMounted === true) {
       setCommentFormVisibility(props.isLoggedIn);
-      if (
-        props.isLoggedIn === true &&
-        props.post.author === sessionStorage.getItem("username")
-      ) {
-        setVisibility(true);
-      } else {
-        setVisibility(false);
-      }
+      setRefreshCommentsList(!refreshCommentsList);
     }
     return () => {
       isMounted = false;
@@ -34,6 +28,21 @@ const PostEntry = (props) => {
     // console.log("in PostEntry, props.isLoggedIn: ", props.isLoggedIn);
     // console.log("vibisility of delete and update buttons: ", visibility);
   }, [props.isLoggedIn, props.refreshList]);
+
+  useEffect(() => {
+    //update editBtnVisibility on next state change cos sometimes not appear on first render
+    let isMounted = true;
+    if (isMounted) {
+      if (props.isLoggedIn === true && props.post.author === props.username) {
+        setEditBtnVisibility(true);
+      } else {
+        setEditBtnVisibility(false);
+      }
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [refreshCommentsList]); //MyBlog editBtn sometimes don't appear, so re-render this component
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
@@ -71,7 +80,7 @@ const PostEntry = (props) => {
                 type="button"
                 className={
                   "btn-sm btn-primary mx-1 " +
-                  (visibility ? "visible" : "invisible")
+                  (editBtnVisibility ? "visible" : "invisible")
                 }
                 onClick={handleEditBtn}
               >
@@ -81,7 +90,7 @@ const PostEntry = (props) => {
                 type="button"
                 className={
                   "btn-sm btn-primary mx-1 " +
-                  (visibility ? "visible" : "invisible")
+                  (editBtnVisibility ? "visible" : "invisible")
                 }
                 onClick={myHandleDelete}
               >

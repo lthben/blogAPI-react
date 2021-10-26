@@ -68,6 +68,7 @@ function App() {
               setList={setList}
               pageAt={pageAt}
               setPageAt={setPageAt}
+              username={sessionStorage.getItem("username")}
             />
           </Route>
           <Route path="/create">

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PostEntry from "../components/PostEntry";
 
 const Home = (props) => {
-  //  props: thisPost, setThisPost, refreshList, setRefreshList, isLoggedIn, list, setList, pageAt, setPageAt
+  //  props: thisPost, setThisPost, refreshList, setRefreshList, isLoggedIn, list, setList, pageAt, setPageAt, username
 
   useEffect(() => {
     let isMounted = true;
@@ -43,6 +43,7 @@ const Home = (props) => {
           isLoggedIn={props.isLoggedIn}
           pageAt={props.pageAt}
           setList={props.setList}
+          username={props.username}
         />
       </div>
     );

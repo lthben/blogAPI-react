@@ -92,7 +92,7 @@ const Login = (props) => {
         sessionStorage.setItem("username", data.username);
         props.setIsLoggedIn(true);
         console.log("successfully logged in: ");
-        alert("Successful login");
+        // alert("Successful login");
 
         history.push("/");
       })

@@ -31,7 +31,7 @@ const Update = (props) => {
           refreshToken();
           updatePost();
         } else if (res === "post updated") {
-          alert("post updated!");
+          // alert("post updated!");
           props.setRefreshList(!props.refreshList);
           // console.log("pageAt in Update: ", props.pageAt);
 

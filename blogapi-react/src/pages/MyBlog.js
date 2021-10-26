@@ -9,7 +9,7 @@ const MyBlog = (props) => {
     props.setPageAt("blog");
 
     const getList = async () => {
-      console.log("getList activated!");
+      // console.log("getList activated!");
       const URI = "http://localhost:8000/api/post-list/";
       await fetch(URI, {
         headers: { "Content-Type": "application/json" },
@@ -33,7 +33,7 @@ const MyBlog = (props) => {
   useEffect(() => {
     let isMounted = true;
     const setMyBlogList = () => {
-      console.log("setMyBlogList activated");
+      // console.log("setMyBlogList activated");
       const bList = props.list.filter((ele, ind) => {
         return ele.author === props.username;
       });
@@ -46,7 +46,7 @@ const MyBlog = (props) => {
     };
   }, [props.list]);
 
-  console.log("bloglist: ", props.blogList);
+  // console.log("bloglist: ", props.blogList);
   //   console.log("username: ", props.username);
 
   const allBlogPosts = props.blogList.map((post, index) => {
@@ -61,6 +61,7 @@ const MyBlog = (props) => {
           setThisPost={props.setThisPost}
           isLoggedIn={props.isLoggedIn}
           pageAt={props.pageAt}
+          username={props.username}
         />
       </div>
     );
