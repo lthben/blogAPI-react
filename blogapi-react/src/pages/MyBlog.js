@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostEntry from "../components/PostEntry";
 
 const MyBlog = (props) => {
-  //props: list, setList, blogList, setBlogList, isLoggedIn, thisPost, setThisPost, username, refreshList, setRefreshList, pageAt, setPageAt
+  //props: list, setList, blogList, setBlogList, isLoggedIn, thisPost, setThisPost, username, refreshList, setRefreshList, refreshCommentsList, setRefreshCommentsList, pageAt, setPageAt
 
   useEffect(() => {
     let isMounted = true;
@@ -49,10 +49,6 @@ const MyBlog = (props) => {
   // console.log("bloglist: ", props.blogList);
   //   console.log("username: ", props.username);
 
-  useEffect(() => {
-    console.log("chicken at myblog here");
-  }, [props.blogList]); //fix bug: comments not refreshed when new post created
-
   const allBlogPosts = props.blogList.map((post, index) => {
     return (
       <div key={index}>
@@ -66,6 +62,8 @@ const MyBlog = (props) => {
           isLoggedIn={props.isLoggedIn}
           pageAt={props.pageAt}
           username={props.username}
+          refreshCommentsList={props.refreshCommentsList}
+          setRefreshCommentsList={props.setRefreshCommentsList}
         />
       </div>
     );

@@ -8,6 +8,7 @@ const CommentList = (props) => {
   // const [visibility, setVisibility] = useState(false);
   const [commentsList, setCommentsList] = useState([]);
   const [username, setUsername] = useState("");
+  const [numComments, setNumComments] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -27,10 +28,13 @@ const CommentList = (props) => {
         .then(async (response) => {
           const res = await response.json();
           // console.log("response: ", response);
-          // console.log("res: ", res);
+          console.log("res: ", res);
           if (response.status === 200) {
             // console.log("comments list ok");
-            if (isMounted) setCommentsList(res);
+            if (isMounted) {
+              setCommentsList(res);
+              setNumComments(res.length);
+            }
           } else {
             console.log("Something went wrong");
           }
@@ -83,7 +87,8 @@ const CommentList = (props) => {
           className="btn btn-link text-decoration-none"
           onClick={handleClick}
         >
-          <i className="bi bi-view-list"></i>&nbsp; All comments &nbsp;
+          <i className="bi bi-view-list"></i>&nbsp; {numComments} comments
+          &nbsp;
           {props.commentsVisibility ? <>&darr;</> : <>&rarr;</>}
         </button>
       </div>

@@ -10,7 +10,7 @@ const Create = (props) => {
   const [post, setPost] = useState({
     title: "",
     content: "",
-    author: sessionStorage.getItem("firstname"),
+    author: sessionStorage.getItem("username"),
     slug: "",
   });
 

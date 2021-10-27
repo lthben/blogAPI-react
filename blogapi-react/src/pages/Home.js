@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PostEntry from "../components/PostEntry";
 
 const Home = (props) => {
-  //  props: thisPost, setThisPost, refreshList, setRefreshList, isLoggedIn, list, setList, pageAt, setPageAt, username
+  //  props: thisPost, setThisPost, refreshList, setRefreshList, refreshCommentsList, setRefreshCommentsList, isLoggedIn, list, setList, pageAt, setPageAt, username
 
   useEffect(() => {
     let isMounted = true;
@@ -44,6 +44,8 @@ const Home = (props) => {
           pageAt={props.pageAt}
           setList={props.setList}
           username={props.username}
+          refreshCommentsList={props.refreshCommentsList}
+          setRefreshCommentsList={props.setRefreshCommentsList}
         />
       </div>
     );

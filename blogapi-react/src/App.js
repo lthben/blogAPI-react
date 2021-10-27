@@ -28,6 +28,7 @@ function App() {
   const [blogList, setBlogList] = useState([]); //myblog list
   // const [username, setUsername] = useState("");
   const [pageAt, setPageAt] = useState("home"); //or "blog"
+  const [refreshCommentsList, setRefreshCommentsList] = useState(false);
 
   useEffect(() => {
     // setUsername(sessionStorage.getItem("username"));
@@ -60,6 +61,8 @@ function App() {
               pageAt={pageAt}
               setPageAt={setPageAt}
               username={sessionStorage.getItem("username")}
+              refreshCommentsList={refreshCommentsList}
+              setRefreshCommentsList={setRefreshCommentsList}
             />
           </Route>
           <Route path="/create">
@@ -91,8 +94,8 @@ function App() {
               setThisPost={setThisPost}
               refreshList={refreshList}
               setRefreshList={setRefreshList}
-              // refreshBlogList={refreshBlogList}
-              // setRefreshBlogList={setRefreshBlogList}
+              refreshCommentsList={refreshCommentsList}
+              setRefreshCommentsList={setRefreshCommentsList}
               isLoggedIn={isLoggedIn}
               list={list}
               setList={setList}

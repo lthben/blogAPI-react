@@ -56,6 +56,7 @@ const CommentForm = (props) => {
       e.preventDefault();
       // console.log("comment: ", comment.content);
       createComment();
+      setInputVisibility(false);
     }
   };
 

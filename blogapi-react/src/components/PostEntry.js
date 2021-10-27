@@ -12,15 +12,15 @@ const PostEntry = (props) => {
 
   const [editBtnVisibility, setEditBtnVisibility] = useState(false); //update and delete buttons
   const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment input field
-  const [refreshCommentsList, setRefreshCommentsList] = useState(false);
   const [commentsVisibility, setCommentsVisibility] = useState(false);
+  const [trigger, setTrigger] = useState(false); //not a real state, just to trigger a series of useEffect
 
   useEffect(() => {
     let isMounted = true;
 
     if (isMounted === true) {
       setCommentFormVisibility(props.isLoggedIn);
-      setRefreshCommentsList(!refreshCommentsList);
+      setTrigger(!trigger);
     }
     return () => {
       isMounted = false;
@@ -33,6 +33,7 @@ const PostEntry = (props) => {
     //update editBtnVisibility on next state change cos sometimes not appear on first render
     let isMounted = true;
     if (isMounted) {
+      // setEditBtnVisibility(!editBtnVisibility); //force a change here to trigger next useEffect
       if (props.isLoggedIn === true && props.post.author === props.username) {
         setEditBtnVisibility(true);
       } else {
@@ -42,7 +43,11 @@ const PostEntry = (props) => {
     return () => {
       isMounted = false;
     };
-  }, [refreshCommentsList]); //to fix bug: MyBlog editBtn sometimes don't appear, so re-render this component
+  }, [trigger]); //to fix bug: MyBlog editBtn sometimes don't appear, so re-render this components
+
+  useEffect(() => {
+    props.setRefreshCommentsList(!props.refreshCommentsList); //force the comments list to re-render
+  }, [editBtnVisibility]);
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
@@ -116,8 +121,8 @@ const PostEntry = (props) => {
             <div className="col-lg-6 text-start ">
               <CommentList
                 postID={props.post.id}
-                refreshCommentsList={refreshCommentsList}
-                setRefreshCommentsList={setRefreshCommentsList}
+                refreshCommentsList={props.refreshCommentsList}
+                setRefreshCommentsList={props.setRefreshCommentsList}
                 isLoggedIn={props.isLoggedIn}
                 commentsVisibility={commentsVisibility}
                 setCommentsVisibility={setCommentsVisibility}
@@ -127,8 +132,8 @@ const PostEntry = (props) => {
               <CommentForm
                 commentFormVisibility={commentFormVisibility}
                 postID={props.post.id}
-                refreshCommentsList={refreshCommentsList}
-                setRefreshCommentsList={setRefreshCommentsList}
+                refreshCommentsList={props.refreshCommentsList}
+                setRefreshCommentsList={props.setRefreshCommentsList}
                 setCommentsVisibility={setCommentsVisibility}
               />
             </div>
