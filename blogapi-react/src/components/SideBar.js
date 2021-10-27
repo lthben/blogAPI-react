@@ -2,9 +2,12 @@ import React from "react";
 
 const SideBar = () => {
   return (
-    <div className="flex-shrink-0 p-3 bg-white position-fixed " id="sidebar">
+    <div
+      className="flex-shrink-0 ps-3 pb-3 bg-white position-fixed "
+      id="sidebar"
+    >
       <button
-        class="btn btn-sm btn-light float-end d-lg-none "
+        class="btn btn-sm btn-light float-end d-lg-none mb-3"
         id="sidebar-toggle-btn"
         type="button"
         data-bs-toggle="collapse"
@@ -14,11 +17,8 @@ const SideBar = () => {
       >
         <i class="bi bi-list"></i>
       </button>
-      <ul
-        className="list-unstyled ps-0 mt-3 collapse d-lg-block"
-        id="collapseContent"
-      >
-        <li className="mb-1 ">
+      <ul className="list-unstyled collapse d-lg-block" id="collapseContent">
+        <li className="my-3 ">
           <button
             className="btn btn-toggle align-items-center rounded collapsed"
             data-bs-toggle="collapse"
@@ -56,7 +56,7 @@ const SideBar = () => {
           >
             Archives
           </button>
-          <div className="collapse" id="archives-collapse">
+          <div className="collapse show" id="archives-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
               <li>
                 <a href="#" className="link-dark rounded">

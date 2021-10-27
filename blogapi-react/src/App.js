@@ -45,10 +45,10 @@ function App() {
         refreshList={refreshList}
         setRefreshList={setRefreshList}
       />
-      <SideBar />
       <main className="container" id="main-container">
         <Switch>
           <Route exact path="/">
+            <SideBar />
             <Home
               thisPost={thisPost}
               setThisPost={setThisPost}

@@ -49,7 +49,7 @@ const Home = (props) => {
     );
   });
 
-  return <div>{allPosts}</div>;
+  return <div id="home-div">{allPosts}</div>;
 };
 
 export default Home;

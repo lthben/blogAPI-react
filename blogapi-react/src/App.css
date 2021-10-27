@@ -77,7 +77,11 @@ div {
   z-index: 1;
 }
 #main-container {
-  padding: 15px 280px 60px 15px;
+  padding: 15px 15px 60px 15px; /* 60px for the footer */
+}
+
+#home-div {
+  padding: 0 280px 0 0; /* 280px for the sidebar */
 }
 
 #sidebar-toggle-btn {
@@ -86,13 +90,17 @@ div {
 
 @media only screen and (max-width: 992px) {
   #main-container {
-    padding-right: 15px;
-    padding-top: 60px;
+    padding-top: 0px;
   }
+
+  #home-div {
+    padding-top: 50px; /* for the sidebar that becomes a top navbar */
+    padding-right: 0; /* no sidebar */
+  }
+
   #sidebar {
     width: 100vw;
   }
-
   #sidebar-toggle-btn {
     width: 100%;
   }
