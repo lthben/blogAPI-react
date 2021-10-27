@@ -113,22 +113,22 @@ const PostEntry = (props) => {
           </p>
 
           <div className="row mb-3">
-            <div className="col">
-              <CommentForm
-                commentFormVisibility={commentFormVisibility}
-                postID={props.post.id}
-                refreshCommentsList={refreshCommentsList}
-                setRefreshCommentsList={setRefreshCommentsList}
-                setCommentsVisibility={setCommentsVisibility}
-              />
-            </div>
-            <div className="col text-end ">
+            <div className="col-lg-6 text-start ">
               <CommentList
                 postID={props.post.id}
                 refreshCommentsList={refreshCommentsList}
                 setRefreshCommentsList={setRefreshCommentsList}
                 isLoggedIn={props.isLoggedIn}
                 commentsVisibility={commentsVisibility}
+                setCommentsVisibility={setCommentsVisibility}
+              />
+            </div>
+            <div className="col-lg-6 text-end">
+              <CommentForm
+                commentFormVisibility={commentFormVisibility}
+                postID={props.post.id}
+                refreshCommentsList={refreshCommentsList}
+                setRefreshCommentsList={setRefreshCommentsList}
                 setCommentsVisibility={setCommentsVisibility}
               />
             </div>

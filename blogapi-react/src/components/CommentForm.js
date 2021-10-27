@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { refreshToken } from "./RefreshToken";
 
 const CommentForm = (props) => {
@@ -11,6 +11,7 @@ const CommentForm = (props) => {
   });
   const [randNum, setRandNum] = useState(Math.round(Math.random() * 50));
   const [inputVisibility, setInputVisibility] = useState(false);
+  const [like, setLike] = useState(false);
 
   const createComment = async () => {
     const URI = "http://localhost:8000/api/comment-create/";
@@ -62,11 +63,25 @@ const CommentForm = (props) => {
     setInputVisibility(!inputVisibility);
   };
 
+  const handleLikeBtn = (e) => {
+    setLike(!like);
+  };
+
+  useEffect(() => {
+    if (like) setRandNum(randNum + 1);
+    else setRandNum(randNum - 1);
+  }, [like]);
+
   return (
     <div className={props.commentFormVisibility ? "visible" : "invisible"}>
       {randNum} Likes &nbsp;
-      <div className="btn-group btn-group-sm mb-1 ">
-        <button type="button" className="btn btn-outline-primary">
+      <div className="btn-group btn-group-sm mb-1">
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={handleLikeBtn}
+          data-bs-toggle="button"
+        >
           <i className="bi bi-hand-thumbs-up"></i>&nbsp;Like
         </button>
         <button
