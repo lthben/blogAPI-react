@@ -4,7 +4,7 @@ export const handleDelete = async (postID) => {
   const URI = "http://localhost:8000/api/post-delete/" + postID + "/";
   await fetch(URI, {
     headers: {
-      Authorization: "Bearer " + sessionStorage.getItem("access_token"), //Command K, S to save without auto-format
+      Authorization: "Bearer " + sessionStorage.getItem("access_token"),
       "Content-Type": "application/json",
     },
     method: "DELETE",
@@ -14,7 +14,7 @@ export const handleDelete = async (postID) => {
       console.log("Response: ", res);
       if (res.code === "token_not_valid") {
         refreshToken();
-        await handleDelete(postID);
+        handleDelete(postID);
       } else {
         // alert("post deleted!");
         console.log("post deleted");

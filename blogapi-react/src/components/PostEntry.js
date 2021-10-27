@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
 const PostEntry = (props) => {
-  // props: post, refreshList, setRefreshList, thisPost, setThisPost, isLoggedIn, pageAt, username
+  // props: post, refreshList, setRefreshList, refreshCommentsList, setRefreshCommentsList, thisPost, setThisPost, isLoggedIn, pageAt, username
   let history = useHistory();
   let date = props.post.created_on.substring(0, 10);
   let time = props.post.created_on.substring(11, 16);
@@ -13,14 +13,15 @@ const PostEntry = (props) => {
   const [editBtnVisibility, setEditBtnVisibility] = useState(false); //update and delete buttons
   const [commentFormVisibility, setCommentFormVisibility] = useState(false); //comment input field
   const [commentsVisibility, setCommentsVisibility] = useState(false);
-  const [trigger, setTrigger] = useState(false); //not a real state, just to trigger a series of useEffect
+  const [triggerOne, setTriggerOne] = useState(false); //not a real state, just to trigger a series of useEffect
+  const [triggerTwo, setTriggerTwo] = useState(false); //not a real state, just to trigger a series of useEffect
 
   useEffect(() => {
     let isMounted = true;
 
     if (isMounted === true) {
       setCommentFormVisibility(props.isLoggedIn);
-      setTrigger(!trigger);
+      setTriggerOne(!triggerOne);
     }
     return () => {
       isMounted = false;
@@ -33,7 +34,7 @@ const PostEntry = (props) => {
     //update editBtnVisibility on next state change cos sometimes not appear on first render
     let isMounted = true;
     if (isMounted) {
-      // setEditBtnVisibility(!editBtnVisibility); //force a change here to trigger next useEffect
+      setTriggerTwo(!triggerTwo);
       if (props.isLoggedIn === true && props.post.author === props.username) {
         setEditBtnVisibility(true);
       } else {
@@ -43,22 +44,26 @@ const PostEntry = (props) => {
     return () => {
       isMounted = false;
     };
-  }, [trigger]); //to fix bug: MyBlog editBtn sometimes don't appear, so re-render this components
+  }, [triggerOne]); //to fix bug: MyBlog editBtn sometimes don't appear, so re-render this components
 
   useEffect(() => {
-    props.setRefreshCommentsList(!props.refreshCommentsList); //force the comments list to re-render
-  }, [editBtnVisibility]);
+    let isMounted = true;
+    if (isMounted) {
+      props.setRefreshCommentsList(!props.refreshCommentsList); //force the comments list to re-render
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [triggerTwo]);
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
     console.log("pageAt in PostEntry Delete: ", props.pageAt);
     props.setRefreshList(!props.refreshList);
-    // props.setRefreshBlogList(!props.refreshBlogList);
 
     if (props.pageAt === "home") {
       history.push("/");
     } else if (props.pageAt === "blog") {
-      // history.push("/");
       history.push("/myblog");
     }
   };
@@ -126,6 +131,9 @@ const PostEntry = (props) => {
                 isLoggedIn={props.isLoggedIn}
                 commentsVisibility={commentsVisibility}
                 setCommentsVisibility={setCommentsVisibility}
+                username={props.username}
+                refreshList={props.refreshList}
+                setRefreshList={props.setRefreshList}
               />
             </div>
             <div className="col-lg-6 text-end">

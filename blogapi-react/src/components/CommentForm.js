@@ -64,13 +64,26 @@ const CommentForm = (props) => {
     setInputVisibility(!inputVisibility);
   };
 
+  useEffect(() => {
+    if (inputVisibility) {
+      const ele = document.getElementById("content");
+      ele.focus();
+    }
+  }, [inputVisibility]);
+
   const handleLikeBtn = (e) => {
     setLike(!like);
   };
 
   useEffect(() => {
-    if (like) setRandNum(randNum + 1);
-    else setRandNum(randNum - 1);
+    let isMounted = true;
+    if (isMounted === true) {
+      if (like) setRandNum(randNum + 1);
+      else setRandNum(randNum - 1);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [like]);
 
   return (

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { refreshToken } from "./RefreshToken";
 import CommentButtons from "./CommentButtons";
 
 const CommentList = (props) => {
-  //props: postID, refreshCommentsList, setRefreshCommentsList, isLoggedIn, commentsVisibility ,setCommentsVisibility
+  //props: postID, refreshList, setRefreshList, refreshCommentsList, setRefreshCommentsList, isLoggedIn, commentsVisibility ,setCommentsVisibility, username
 
-  // const [visibility, setVisibility] = useState(false);
   const [commentsList, setCommentsList] = useState([]);
-  const [username, setUsername] = useState("");
   const [numComments, setNumComments] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
-    setUsername(sessionStorage.getItem("username"));
+
     const getList = async () => {
       const URI =
         "http://localhost:8000/api/comment-list/" + props.postID + "/";
@@ -28,10 +25,11 @@ const CommentList = (props) => {
         .then(async (response) => {
           const res = await response.json();
           // console.log("response: ", response);
-          console.log("res: ", res);
+          // console.log("res: ", res);
           if (response.status === 200) {
             // console.log("comments list ok");
             if (isMounted) {
+              // props.setCommentsVisibility(true); //for testing only
               setCommentsList(res);
               setNumComments(res.length);
             }
@@ -43,14 +41,12 @@ const CommentList = (props) => {
           console.log(error);
         });
     };
-    getList();
+    if (isMounted) getList();
 
     return () => {
       isMounted = false;
     };
   }, [props.refreshCommentsList]);
-
-  // console.log("postID: ", props.postID);
 
   const handleClick = () => {
     props.setCommentsVisibility(!props.commentsVisibility);
@@ -59,7 +55,7 @@ const CommentList = (props) => {
   const listJSX = commentsList.map((ele, index) => {
     return (
       <div key={index}>
-        '{ele.content}' &nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;'{ele.content}' &nbsp;
         <small>
           <i>
             - {ele.author} on {ele.created_on.substring(0, 10)}{" "}
@@ -67,7 +63,8 @@ const CommentList = (props) => {
           </i>
         </small>{" "}
         <br />
-        {ele.author === username ? (
+        &nbsp; &nbsp; &nbsp;&nbsp;
+        {ele.author === props.username ? (
           <CommentButtons
             comment={ele}
             refreshCommentsList={props.refreshCommentsList}
@@ -87,7 +84,8 @@ const CommentList = (props) => {
           className="btn btn-link text-decoration-none"
           onClick={handleClick}
         >
-          <i className="bi bi-view-list"></i>&nbsp; {numComments} comments
+          <i className="bi bi-view-list"></i>&nbsp; {numComments}{" "}
+          {numComments > 1 ? "comments" : "comment"}
           &nbsp;
           {props.commentsVisibility ? <>&darr;</> : <>&rarr;</>}
         </button>

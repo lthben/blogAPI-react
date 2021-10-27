@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PostEntry from "../components/PostEntry";
 
 const Home = (props) => {
@@ -16,7 +16,9 @@ const Home = (props) => {
       })
         .then(async (response) => {
           const data = await response.json();
-          if (isMounted) props.setList(data);
+          if (isMounted) {
+            props.setList(data);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -29,7 +31,15 @@ const Home = (props) => {
     };
   }, [props.refreshList, props.isLoggedIn]);
 
-  // console.log("list: ", props.list);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      props.setRefreshCommentsList(!props.refreshCommentsList);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [props.list]);
 
   const allPosts = props.list.map((post, index) => {
     return (
