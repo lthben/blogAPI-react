@@ -49,6 +49,10 @@ const MyBlog = (props) => {
   // console.log("bloglist: ", props.blogList);
   //   console.log("username: ", props.username);
 
+  useEffect(() => {
+    console.log("chicken at myblog here");
+  }, [props.blogList]); //fix bug: comments not refreshed when new post created
+
   const allBlogPosts = props.blogList.map((post, index) => {
     return (
       <div key={index}>

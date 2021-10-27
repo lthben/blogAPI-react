@@ -7,7 +7,7 @@ const SideBar = () => {
       id="sidebar"
     >
       <button
-        class="btn btn-sm btn-light float-end d-lg-none mb-3"
+        className="btn btn-sm btn-light float-end d-lg-none mb-3"
         id="sidebar-toggle-btn"
         type="button"
         data-bs-toggle="collapse"
@@ -15,7 +15,7 @@ const SideBar = () => {
         aria-expanded="true"
         aria-controls="collapseContent"
       >
-        <i class="bi bi-list"></i>
+        <i className="bi bi-list"></i>
       </button>
       <ul className="list-unstyled collapse d-lg-block" id="collapseContent">
         <li className="my-3 ">

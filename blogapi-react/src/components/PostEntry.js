@@ -42,7 +42,7 @@ const PostEntry = (props) => {
     return () => {
       isMounted = false;
     };
-  }, [refreshCommentsList]); //MyBlog editBtn sometimes don't appear, so re-render this component
+  }, [refreshCommentsList]); //to fix bug: MyBlog editBtn sometimes don't appear, so re-render this component
 
   const myHandleDelete = async () => {
     await handleDelete(props.post.id);
