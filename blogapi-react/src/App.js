@@ -180,18 +180,18 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {isLoggedIn === true ? (
               <ul className="navbar-nav ms-auto mb-3 mb-lg-0 mt-3 mt-lg-0 align-items-center ">
-                <li className="mx-3 mb-3 mb-lg-0" id="welcome-text">
+                <li className="me-3 mb-3 mb-lg-0" id="welcome-text">
                   Welcome <b>{sessionStorage.getItem("firstname")}</b>
                 </li>
                 <li className="nav-item">
-                  <Link to="/create" className="nav-link mx-3">
+                  <Link to="/create" className="nav-link me-3">
                     <button type="button" className="btn btn-primary">
                       <i className="bi bi-pen"></i>&nbsp;Create
                     </button>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <span className="nav-link mx-3">
+                  <span className="nav-link me-3">
                     <button
                       type="button"
                       className="btn btn-primary"
@@ -203,14 +203,14 @@ function App() {
                   </span>
                 </li>
                 <li className="nav-item">
-                  <Link to="/myprofile" className="nav-link mx-3">
+                  <Link to="/myprofile" className="nav-link me-3">
                     <button type="button" className="btn btn-primary">
                       <i className="bi bi-person"></i>&nbsp;My Profile
                     </button>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <span className="nav-link mx-3">
+                  <span className="nav-link me-3">
                     <button
                       type="button"
                       className="btn btn-primary "
@@ -225,14 +225,14 @@ function App() {
             ) : (
               <ul className="navbar-nav ms-auto mb-3 mb-lg-0 mt-3 mt-lg-0 align-items-center">
                 <li className="nav-item">
-                  <Link to="/signup" className="nav-link mx-3">
+                  <Link to="/signup" className="nav-link me-3">
                     <button type="button" className="btn btn-primary ">
                       <i className="bi bi-person-plus"></i>&nbsp;Sign up
                     </button>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/login" className="nav-link mx-3">
+                  <Link to="/login" className="nav-link me-3">
                     <button type="button" className="btn btn-primary">
                       <i className="bi bi-door-open"></i>&nbsp;Log in
                     </button>
