@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { refreshToken } from "./RefreshToken";
 
 const CommentForm = (props) => {
@@ -12,6 +12,8 @@ const CommentForm = (props) => {
   const [randNum, setRandNum] = useState(Math.round(Math.random() * 50));
   const [inputVisibility, setInputVisibility] = useState(false);
   const [like, setLike] = useState(false);
+
+  const inputEl = useRef(null);
 
   const createComment = async () => {
     const URI = "http://localhost:8000/api/comment-create/";
@@ -66,8 +68,7 @@ const CommentForm = (props) => {
 
   useEffect(() => {
     if (inputVisibility) {
-      const ele = document.getElementById("content");
-      ele.focus();
+      inputEl.current.focus();
     }
   }, [inputVisibility]);
 
@@ -113,6 +114,7 @@ const CommentForm = (props) => {
               type="text"
               className="form-control"
               id="content"
+              ref={inputEl}
               name="content"
               placeholder="Write a comment ..."
               value={comment.content}
