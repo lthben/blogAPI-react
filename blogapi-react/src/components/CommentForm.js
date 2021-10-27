@@ -67,19 +67,19 @@ const CommentForm = (props) => {
       {randNum} Likes &nbsp;
       <div className="btn-group btn-group-sm mb-1 ">
         <button type="button" className="btn btn-outline-primary">
-          <i class="bi bi-hand-thumbs-up"></i>&nbsp;Like
+          <i className="bi bi-hand-thumbs-up"></i>&nbsp;Like
         </button>
         <button
           type="button"
           className="btn btn-outline-primary"
           onClick={handleCommentBtn}
         >
-          <i class="bi bi-chat-dots"></i>&nbsp;Comment
+          <i className="bi bi-chat-dots"></i>&nbsp;Comment
         </button>
       </div>
       {inputVisibility ? (
         <form>
-          <div className="input-group mb-3">
+          <div className="input-group my-3">
             <input
               type="text"
               className="form-control"

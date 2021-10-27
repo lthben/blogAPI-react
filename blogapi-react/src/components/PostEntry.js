@@ -104,9 +104,9 @@ const PostEntry = (props) => {
             </i>
           </small>
 
-          <p className="mt-3">{props.post.content}</p>
+          <p className="my-4">{props.post.content}</p>
           <p>
-            Tags:{" "}
+            Tags:&nbsp;
             <i>
               #{props.post.author} #{props.post.slug}
             </i>

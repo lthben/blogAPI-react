@@ -19,56 +19,65 @@ const UserButtons = (props) => {
   };
 
   const loggedInJSX = (
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <Link to="/create">
+    <ul className="navbar-nav ms-auto align-items-center ">
+      <li className="nav-item">
+        <Link to="/create" className="nav-link ">
           <button type="button" className="btn btn-primary">
-            <i class="bi bi-pen"></i>&nbsp;Create
+            <i className="bi bi-pen"></i>&nbsp;Create
           </button>
         </Link>
       </li>
-      <li class="nav-item">
-        <button
-          type="button"
-          className="btn btn-primary ms-1"
-          onClick={handleMyBlogBtn}
-        >
-          <i class="bi bi-book"></i>
-          &nbsp;My Blog
-        </button>
+      <li className="nav-item">
+        <span className="nav-link ">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleMyBlogBtn}
+          >
+            <i className="bi bi-book"></i>
+            &nbsp;My Blog
+          </button>
+        </span>
       </li>
-      <li class="nav-item">
-        <Link to="/myprofile">
-          <button type="button" className="btn btn-primary ms-1">
-            <i class="bi bi-person"></i>&nbsp;My Profile
+      <li className="nav-item">
+        <Link to="/myprofile" className="nav-link ">
+          <button type="button" className="btn btn-primary">
+            <i className="bi bi-person"></i>&nbsp;My Profile
           </button>
         </Link>
       </li>
-      <li class="nav-item">
-        <button
-          type="button"
-          className="btn btn-primary ms-1"
-          onClick={handleLogout}
-        >
-          <i class="bi bi-box-arrow-right"></i>&nbsp;Logout
-        </button>
+      <li className="nav-item">
+        <span className="nav-link ">
+          <button
+            type="button"
+            className="btn btn-primary "
+            onClick={handleLogout}
+          >
+            <i className="bi bi-box-arrow-right"></i>
+            &nbsp;Logout
+          </button>
+        </span>
       </li>
     </ul>
   );
 
   const loggedOutJSX = (
-    <>
-      <Link to="/signup">
-        <button type="button" className="btn btn-primary mx-3">
-          <i class="bi bi-person-plus"></i>&nbsp;Sign up
-        </button>
-      </Link>
-      <Link to="/login">
-        <button type="button" className="btn btn-primary">
-          <i class="bi bi-door-open"></i>&nbsp;Log in
-        </button>
-      </Link>
-    </>
+    <ul className="navbar-nav ms-auto   align-items-center">
+      <li className="nav-item">
+        <Link to="/signup" className="nav-link ">
+          <button type="button" className="btn btn-primary ">
+            <i className="bi bi-person-plus"></i>&nbsp;Sign up
+          </button>
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link to="/login" className="nav-link ">
+          <button type="button" className="btn btn-primary">
+            <i className="bi bi-door-open"></i>&nbsp;Log in
+          </button>
+        </Link>
+      </li>
+    </ul>
   );
 
   return <>{props.isLoggedIn === true ? loggedInJSX : loggedOutJSX}</>;

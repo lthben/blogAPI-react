@@ -83,7 +83,7 @@ const CommentList = (props) => {
           className="btn btn-link text-decoration-none"
           onClick={handleClick}
         >
-          <i class="bi bi-view-list"></i>&nbsp; All comments &nbsp;
+          <i className="bi bi-view-list"></i>&nbsp; All comments &nbsp;
           {props.commentsVisibility ? <>&darr;</> : <>&rarr;</>}
         </button>
       </div>

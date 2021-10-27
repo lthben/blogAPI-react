@@ -27,3 +27,12 @@ div {
 #welcome-text {
   color: white;
 }
+
+#sidebar {
+  right: 0;
+  height: 100vh;
+}
+
+body {
+  background: none;
+}
