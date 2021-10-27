@@ -46,14 +46,7 @@ function App() {
         setRefreshList={setRefreshList}
       />
       <SideBar />
-      <main
-        className="container"
-        style={{
-          paddingTop: "15px ",
-          paddingBottom: "60px",
-          paddingRight: "280px",
-        }}
-      >
+      <main className="container" id="main-container">
         <Switch>
           <Route exact path="/">
             <Home
